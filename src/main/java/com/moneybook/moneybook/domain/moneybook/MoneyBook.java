@@ -1,5 +1,7 @@
 package com.moneybook.moneybook.domain.moneybook;
 
+import com.moneybook.moneybook.domain.member.Member;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class MoneyBook {
 
@@ -17,8 +20,7 @@ public class MoneyBook {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @Column(nullable = false)
-    private String username;
+    private Member member;
 
     private LocalDateTime date;
 
@@ -30,12 +32,16 @@ public class MoneyBook {
     private String tag;
 
     @Builder
-    public MoneyBook(String username, LocalDateTime date, String context, Long amount, String tag) {
-        this.username = username;
+    public MoneyBook(Member member, LocalDateTime date, String context, Long amount, String tag) {
+        this.member = member;
         this.date = date;
         this.context = context;
         this.amount = amount;
         this.tag = tag;
+    }
+
+    public void changeDate(LocalDateTime newDate) {
+        this.date = newDate;
     }
 
     public void changeContext(String newContext) {
@@ -45,4 +51,6 @@ public class MoneyBook {
     public void changeAmount(Long newAmount) {
         this.amount = newAmount;
     }
+
+    public void changeTag(String newTag) { this.tag = newTag; }
 }

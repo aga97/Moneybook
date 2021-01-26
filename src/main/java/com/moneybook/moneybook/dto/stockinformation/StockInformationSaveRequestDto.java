@@ -19,12 +19,4 @@ public class StockInformationSaveRequestDto {
         this.currency = currency;
         this.currentPrice = currentPrice;
     }
-
-    public StockInformation toEntity() {
-        return StockInformation.builder()
-                .ticker(ticker)
-                .currency(currency)
-                .currentPrice(currentPrice)
-                .build();
-    }
 }

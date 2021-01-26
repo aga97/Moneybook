@@ -28,14 +28,4 @@ public class StockTradingSaveRequestDto {
         this.month = month;
         this.day = day;
     }
-
-    public StockTrading toEntity() {
-        return StockTrading.builder()
-                .username(username)
-                .ticker(ticker)
-                .price(price)
-                .stockQuantity(stockQuantity)
-                .tradingDate(LocalDateTime.of(year, month, day, 0, 0))
-                .build();
-    }
 }

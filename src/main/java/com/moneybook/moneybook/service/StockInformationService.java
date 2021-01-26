@@ -17,7 +17,13 @@ public class StockInformationService {
 
     @Transactional
     public Long save(StockInformationSaveRequestDto stock) {
-        StockInformation stockInformation = stock.toEntity();
+
+        StockInformation stockInformation = StockInformation.builder()
+                .ticker(stock.getTicker())
+                .currency(stock.getCurrency())
+                .currentPrice(stock.getCurrentPrice())
+                .build();
+
         validateDuplicateStock(stockInformation);
         return stockInformationRepository.save(stockInformation).getId();
     }

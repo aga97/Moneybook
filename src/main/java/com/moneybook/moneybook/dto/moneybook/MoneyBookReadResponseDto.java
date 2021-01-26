@@ -1,6 +1,7 @@
 package com.moneybook.moneybook.dto.moneybook;
 
 import com.moneybook.moneybook.domain.moneybook.MoneyBook;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,15 @@ public class MoneyBookReadResponseDto {
     private String context;
     private Long amount;
     private String tag;
+
+    @QueryProjection
+    public MoneyBookReadResponseDto(Long id, Integer day, String context, Long amount, String tag) {
+        this.id = id;
+        this.day = day;
+        this.context = context;
+        this.amount = amount;
+        this.tag = tag;
+    }
 
     @Builder
     public MoneyBookReadResponseDto(MoneyBook entity) {

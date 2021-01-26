@@ -1,12 +1,16 @@
 package com.moneybook.moneybook.domain.tag;
 
 import com.moneybook.moneybook.domain.BaseTimeEntity;
+import com.moneybook.moneybook.domain.member.Member;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class CustomTag extends BaseTimeEntity {
     @Id
@@ -15,15 +19,14 @@ public class CustomTag extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @Column(nullable = false)
-    private String username;
+    private Member member;
 
     @Column(nullable = false)
     private String tag;
 
     @Builder
-    public CustomTag(String username, String tag) {
-        this.username = username;
+    public CustomTag(Member member, String tag) {
+        this.member = member;
         this.tag = tag;
     }
 

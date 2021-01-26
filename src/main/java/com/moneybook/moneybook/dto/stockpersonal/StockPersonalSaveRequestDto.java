@@ -21,14 +21,4 @@ public class StockPersonalSaveRequestDto {
         this.targetQuantity = targetQuantity;
         this.currentQuantity = currentQuantity;
     }
-
-    public StockPersonal toEntity(){
-        return StockPersonal.builder()
-                .username(username)
-                .ticker(ticker)
-                .targetQuantity(targetQuantity)
-                .currentQuantity(currentQuantity)
-                .build();
-    }
-
 }

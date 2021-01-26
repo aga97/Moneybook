@@ -18,12 +18,4 @@ public class MemberSaveRequestDto {
         this.password = password;
         this.email = email;
     }
-
-    public Member toEntity(){
-        return Member.builder()
-                .username(username)
-                .password(password)
-                .email(email)
-                .build();
-    }
 }

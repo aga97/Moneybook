@@ -15,7 +15,7 @@ public class StockPersonalReadResponseDto {
 
     public StockPersonalReadResponseDto(StockPersonal entity) {
         this.id = entity.getId();
-        this.ticker = entity.getTicker();
+        this.ticker = entity.getStockInformation().getTicker();
         this.targetQuantity = entity.getTargetQuantity();
         this.currentQuantity = entity.getCurrentQuantity();
     }
