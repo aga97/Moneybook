@@ -4,10 +4,7 @@ import com.moneybook.moneybook.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -16,6 +13,8 @@ public class CustomTag extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     @Column(nullable = false)
     private String username;
 
@@ -26,5 +25,9 @@ public class CustomTag extends BaseTimeEntity {
     public CustomTag(String username, String tag) {
         this.username = username;
         this.tag = tag;
+    }
+
+    public void changeTag(String newTag) {
+        this.tag = newTag;
     }
 }

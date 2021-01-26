@@ -14,15 +14,23 @@ public class StockInformation extends BaseTimeEntity {
     @Column(name = "stock_information_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String ticker;
 
     @Column(nullable = false)
-    private Long currentPrice;
+    private String currency;
+
+    @Column(nullable = false)
+    private Double currentPrice;
 
     @Builder
-    public StockInformation(String ticker, Long currentPrice) {
+    public StockInformation(String ticker, String currency, Double currentPrice) {
         this.ticker = ticker;
+        this.currency = currency;
         this.currentPrice = currentPrice;
+    }
+
+    public void changeCurrentPrice(Double newCurrentPrice){
+        this.currentPrice = newCurrentPrice;
     }
 }

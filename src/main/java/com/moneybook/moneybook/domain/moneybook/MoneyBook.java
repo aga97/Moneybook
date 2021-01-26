@@ -15,6 +15,8 @@ public class MoneyBook {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     @Column(nullable = false)
     private String username;
 
@@ -34,5 +36,13 @@ public class MoneyBook {
         this.context = context;
         this.amount = amount;
         this.tag = tag;
+    }
+
+    public void changeContext(String newContext) {
+        this.context = newContext;
+    }
+
+    public void changeAmount(Long newAmount) {
+        this.amount = newAmount;
     }
 }
