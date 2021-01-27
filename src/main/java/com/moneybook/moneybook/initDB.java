@@ -72,14 +72,14 @@ public class initDB {
                     .build();
             em.persist(stock);
 
-
-            StockPersonal stockPersonal = StockPersonal.builder()
-                    .member(member)
-                    .stockInformation(stock)
-                    .targetQuantity(100L)
-                    .currentQuantity(10L)
+            StockInformation stock2 = StockInformation.builder()
+                    .ticker("SDGR")
+                    .currency("USD")
+                    .currentPrice(100.1)
                     .build();
-            em.persist(stockPersonal);
+            em.persist(stock2);
+
+            Long stockQuantity = 0L;
 
             for(int i=0; i<100; i++) {
                 em.persist(StockTrading.builder()
@@ -89,7 +89,19 @@ public class initDB {
                         .stockQuantity(100L + i)
                         .tradingDate(LocalDateTime.now())
                         .build());
+
+                stockQuantity += 100L+i;
             }
+
+            StockPersonal stockPersonal = StockPersonal.builder()
+                    .member(member)
+                    .stockInformation(stock)
+                    .targetQuantity(100L)
+                    .currentQuantity(stockQuantity)
+                    .build();
+            em.persist(stockPersonal);
+
+            stockQuantity = 0L;
 
             for(int i=0; i<100; i++) {
                 em.persist(StockTrading.builder()
@@ -99,7 +111,17 @@ public class initDB {
                         .stockQuantity(100L + i)
                         .tradingDate(LocalDateTime.now())
                         .build());
+
+                stockQuantity += 100L+i;
             }
+
+            StockPersonal stockPersonal2 = StockPersonal.builder()
+                    .member(member2)
+                    .stockInformation(stock)
+                    .targetQuantity(100L)
+                    .currentQuantity(stockQuantity)
+                    .build();
+            em.persist(stockPersonal2);
         }
     }
 }

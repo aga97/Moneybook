@@ -41,14 +41,15 @@ public class StockPersonal extends BaseTimeEntity {
         this.targetQuantity = newTargetQuantity;
     }
 
-    public void buyStock(Long buyQuantity) {
-        this.currentQuantity += buyQuantity;
+    public void tradeCurrentQuantity(Long Quantity) {
+
+        if(Quantity < 0){
+            if(this.currentQuantity + Quantity < 0)
+                throw new IllegalArgumentException("can not sell that much");
+        }
+
+        this.currentQuantity += Quantity;
     }
 
-    public void sellStock(Long sellQuantity) {
-        if(this.currentQuantity - sellQuantity < 0){
-            throw new IllegalArgumentException("sell too much");
-        }
-        this.currentQuantity -= sellQuantity;
-    }
+
 }

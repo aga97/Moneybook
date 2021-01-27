@@ -74,8 +74,7 @@ public class MoneyBookService {
 
     @Transactional
     public void deleteMoneyBook(Long id) {
-        moneyBookRepository.delete(moneyBookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not exist row")));
+        moneyBookRepository.deleteById(id);
     }
 
 }

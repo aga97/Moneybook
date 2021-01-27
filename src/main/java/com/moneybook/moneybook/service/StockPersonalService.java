@@ -6,11 +6,15 @@ import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockInformationRepository;
 import com.moneybook.moneybook.domain.stock.StockPersonal;
 import com.moneybook.moneybook.domain.stock.StockPersonalRepository;
+import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadRequestDto;
+import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadResponseDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalSaveRequestDto;
+import com.moneybook.moneybook.dto.stockpersonal.StockPersonalUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -45,9 +49,40 @@ public class StockPersonalService {
     @Transactional(readOnly = true)
     private void validateDuplicateStock(StockPersonal stockPersonal){
 
-        List<StockPersonal> findStocks = stockPersonalRepository.findByTicker(stockPersonal.getStockInformation().getTicker());
+        List<StockPersonal> findStocks = stockPersonalRepository.findByUsernameAndTicker(
+                stockPersonal.getMember().getUsername(),
+                stockPersonal.getStockInformation().getTicker()
+        );
         if(!findStocks.isEmpty()){
             throw new IllegalStateException("already exist stock");
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<StockPersonalReadResponseDto> findByUsername(StockPersonalReadRequestDto requestDto){
+        List<StockPersonal> findStockPersonal = stockPersonalRepository.findByUsername(requestDto.getUsername());
+        List<StockPersonalReadResponseDto> responseDtos = new ArrayList<>();
+
+        for (StockPersonal stockPersonal : findStockPersonal) {
+            responseDtos.add(new StockPersonalReadResponseDto(stockPersonal));
+        }
+
+        return responseDtos;
+    }
+
+    @Transactional
+    public Long updateAll(StockPersonalUpdateRequestDto requestDto) {
+        StockPersonal stockPersonal = stockPersonalRepository.findById(requestDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+
+        stockPersonal.changeTargetQuantity(requestDto.getTargetQuantity());
+        stockPersonal.tradeCurrentQuantity(requestDto.getCurrentQuantity());
+        return stockPersonal.getId();
+    }
+
+    @Transactional
+    public void deleteStockPersonal(Long id){
+        stockPersonalRepository.deleteById(id);
+    }
+
 }

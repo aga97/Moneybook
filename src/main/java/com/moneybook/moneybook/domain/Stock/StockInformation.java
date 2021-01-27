@@ -1,12 +1,15 @@
 package com.moneybook.moneybook.domain.stock;
 
 import com.moneybook.moneybook.domain.BaseTimeEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class StockInformation extends BaseTimeEntity {
 

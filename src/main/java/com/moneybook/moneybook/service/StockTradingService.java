@@ -2,16 +2,17 @@ package com.moneybook.moneybook.service;
 
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
-import com.moneybook.moneybook.domain.stock.StockInformation;
-import com.moneybook.moneybook.domain.stock.StockInformationRepository;
-import com.moneybook.moneybook.domain.stock.StockTrading;
-import com.moneybook.moneybook.domain.stock.StockTradingRepository;
+import com.moneybook.moneybook.domain.stock.*;
+import com.moneybook.moneybook.dto.stocktrading.StockTradingReadRequestDto;
+import com.moneybook.moneybook.dto.stocktrading.StockTradingReadResponseDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingSaveRequestDto;
+import com.moneybook.moneybook.dto.stocktrading.StockTradingUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,26 +23,86 @@ public class StockTradingService {
     private final StockTradingRepository stockTradingRepository;
     private final MemberRepository memberRepository;
     private final StockInformationRepository stockInformationRepository;
+    private final StockPersonalRepository stockPersonalRepository;
 
     @Transactional
-    public Long save(StockTradingSaveRequestDto stock) {
+    public Long save(StockTradingSaveRequestDto requestDto) {
 
-        List<Member> findMember = memberRepository.findByUsername(stock.getUsername());
+        List<Member> findMember = memberRepository.findByUsername(requestDto.getUsername());
         if(findMember.isEmpty()) throw new IllegalArgumentException("not exist username");
-        List<StockInformation> findStock = stockInformationRepository.findByTicker(stock.getTicker());
+        List<StockInformation> findStock = stockInformationRepository.findByTicker(requestDto.getTicker());
 
         ////////// 주식이 없으면 api로 불러옴(미구현) 아예 없는 티커일때 에러
         if(findStock.isEmpty()) throw new IllegalArgumentException("not exist ticker");
         ///////////////
+
+        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(
+                findMember.get(0).getUsername(), findStock.get(0).getTicker());
+        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
+
+        Long tradingQuantity = requestDto.getStockQuantity();
+        stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);
+
         StockTrading stockTrading = StockTrading.builder()
                 .member(findMember.get(0))
                 .stockInformation(findStock.get(0))
-                .price(stock.getPrice())
-                .stockQuantity(stock.getStockQuantity())
-                .tradingDate(LocalDateTime.of(stock.getYear(), stock.getMonth(), stock.getDay(), 0, 0))
+                .price(tradingQuantity)
+                .stockQuantity(requestDto.getStockQuantity())
+                .tradingDate(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), 0, 0))
                 .build();
 
 
         return stockTradingRepository.save(stockTrading).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<StockTradingReadResponseDto> findByUsernameAndDate(StockTradingReadRequestDto requestDto) {
+        List<StockTrading> findStockTradings = stockTradingRepository.findByUsernameAndDate(requestDto.getUsername(), requestDto.getYear(), requestDto.getMonth());
+
+        List<StockTradingReadResponseDto> responseDtos = new ArrayList<>();
+
+        for (StockTrading findStockTrading : findStockTradings) {
+            responseDtos.add(new StockTradingReadResponseDto(findStockTrading));
+        }
+
+        return responseDtos;
+    }
+
+    @Transactional
+    public Long updateAll(StockTradingUpdateRequestDto requestDto) {
+        StockTrading stockTrading = stockTradingRepository.findById(requestDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+
+
+        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(stockTrading.getMember().getUsername(),
+                stockTrading.getStockInformation().getTicker());
+        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
+
+        Long beforeQuantity = stockTrading.getStockQuantity();
+        stockPersonal.get(0).tradeCurrentQuantity(-beforeQuantity);
+
+        Long tradingQuantity = requestDto.getStockQuantity();
+        stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);
+
+        stockTrading.changeStockQuantity(tradingQuantity);
+        stockTrading.changeTradingDate(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), 0, 0));
+
+        return stockTrading.getId();
+    }
+
+    @Transactional
+    public Long deleteStockTrading(Long id) {
+        StockTrading stockTrading = stockTradingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+
+        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(stockTrading.getMember().getUsername(),
+                stockTrading.getStockInformation().getTicker());
+        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
+
+        Long tradingQuantity = stockTrading.getStockQuantity();
+        stockPersonal.get(0).tradeCurrentQuantity(-tradingQuantity);
+
+        stockTradingRepository.deleteById(id);
+        return id;
     }
 }
