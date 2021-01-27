@@ -39,6 +39,17 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
                 .fetch();
     }
 
+    @Override
+    public List<MoneyBook> findByUsernameAndDate(String username, Integer year, Integer month) {
+        return queryFactory
+                .selectFrom(moneyBook)
+                .where(
+                        usernameEq(username),
+                        yearMonthEq(year, month)
+                )
+                .fetch();
+    }
+
     private BooleanExpression usernameEq(String username){
         return StringUtils.hasText(username) ? moneyBook.member.username.eq(username) : null;
     }

@@ -28,7 +28,6 @@ public class MoneyBookReadResponseDto {
         this.tag = tag;
     }
 
-    @Builder
     public MoneyBookReadResponseDto(MoneyBook entity) {
         this.id = entity.getId();
         this.day = entity.getDate().getDayOfMonth();

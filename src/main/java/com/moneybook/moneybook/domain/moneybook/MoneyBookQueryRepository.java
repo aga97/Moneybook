@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MoneyBookQueryRepository {
     List<MoneyBookReadResponseDto> findByUsernameAndDate(MoneyBookReadRequestDto condition);
+    List<MoneyBook> findByUsernameAndDate(String username, Integer year, Integer month);
 }

@@ -41,7 +41,16 @@ public class MoneyBookService {
 
     @Transactional(readOnly = true)
     public List<MoneyBookReadResponseDto> findAll(MoneyBookReadRequestDto requestDto){
-        return moneyBookRepository.findByUsernameAndDate(requestDto);
+
+        List<MoneyBook> moneyBooks = moneyBookRepository.findByUsernameAndDate(requestDto.getUsername(), requestDto.getYear(), requestDto.getMonth());
+
+        List<MoneyBookReadResponseDto> responseDto = new ArrayList<>();
+
+        for (MoneyBook moneyBook : moneyBooks) {
+            responseDto.add(new MoneyBookReadResponseDto(moneyBook));
+        }
+
+        return responseDto;
     }
 
     @Transactional
