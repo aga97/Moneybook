@@ -21,31 +21,19 @@ import java.util.List;
 public class StockTradingService {
 
     private final StockTradingRepository stockTradingRepository;
-    private final MemberRepository memberRepository;
-    private final StockInformationRepository stockInformationRepository;
     private final StockPersonalRepository stockPersonalRepository;
 
     @Transactional
     public Long save(StockTradingSaveRequestDto requestDto) {
 
-        List<Member> findMember = memberRepository.findByUsername(requestDto.getUsername());
-        if(findMember.isEmpty()) throw new IllegalArgumentException("not exist username");
-        List<StockInformation> findStock = stockInformationRepository.findByTicker(requestDto.getTicker());
-
-        ////////// 주식이 없으면 api로 불러옴(미구현) 아예 없는 티커일때 에러
-        if(findStock.isEmpty()) throw new IllegalArgumentException("not exist ticker");
-        ///////////////
-
-        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(
-                findMember.get(0).getUsername(), findStock.get(0).getTicker());
+        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(requestDto.getUsername(), requestDto.getTicker());
         if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
 
         Long tradingQuantity = requestDto.getStockQuantity();
         stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);
 
         StockTrading stockTrading = StockTrading.builder()
-                .member(findMember.get(0))
-                .stockInformation(findStock.get(0))
+                .stockPersonal(stockPersonal.get(0))
                 .price(tradingQuantity)
                 .stockQuantity(requestDto.getStockQuantity())
                 .tradingDate(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), 0, 0))
@@ -73,18 +61,8 @@ public class StockTradingService {
         StockTrading stockTrading = stockTradingRepository.findById(requestDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("not exist row"));
 
-
-        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(stockTrading.getMember().getUsername(),
-                stockTrading.getStockInformation().getTicker());
-        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
-
-        Long beforeQuantity = stockTrading.getStockQuantity();
-        stockPersonal.get(0).tradeCurrentQuantity(-beforeQuantity);
-
-        Long tradingQuantity = requestDto.getStockQuantity();
-        stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);
-
-        stockTrading.changeStockQuantity(tradingQuantity);
+        stockTrading.changeTradingPrice(requestDto.getPrice());
+        stockTrading.changeStockQuantity(requestDto.getStockQuantity());
         stockTrading.changeTradingDate(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), 0, 0));
 
         return stockTrading.getId();
@@ -95,12 +73,8 @@ public class StockTradingService {
         StockTrading stockTrading = stockTradingRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not exist row"));
 
-        List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(stockTrading.getMember().getUsername(),
-                stockTrading.getStockInformation().getTicker());
-        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
-
         Long tradingQuantity = stockTrading.getStockQuantity();
-        stockPersonal.get(0).tradeCurrentQuantity(-tradingQuantity);
+        stockTrading.getStockPersonal().tradeCurrentQuantity(-tradingQuantity);
 
         stockTradingRepository.deleteById(id);
         return id;

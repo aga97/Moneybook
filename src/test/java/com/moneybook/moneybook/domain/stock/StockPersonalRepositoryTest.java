@@ -2,7 +2,9 @@ package com.moneybook.moneybook.domain.stock;
 
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
+import org.aspectj.lang.annotation.After;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,21 +36,21 @@ class StockPersonalRepositoryTest {
     @BeforeEach
     public void init() {
         Member member1 = Member.builder()
-                .username("testA")
+                .username("testStockPersonalRepository")
                 .password("pw")
                 .email("test@test1")
                 .build();
         memberRepository.save(member1);
 
         Member member2 = Member.builder()
-                .username("testB")
+                .username("testStockPersonalRepository2")
                 .password("pw")
                 .email("test@test2")
                 .build();
         memberRepository.save(member2);
 
         StockInformation stock1 = StockInformation.builder()
-                .ticker("SPCE")
+                .ticker("QQQ")
                 .currency("USD")
                 .currentPrice(52.5)
                 .build();
@@ -93,11 +96,18 @@ class StockPersonalRepositoryTest {
         stockPersonalRepository.save(stockPersonal4);
     }
 
+    @AfterEach
+    public void cleanup() {
+        stockPersonalRepository.deleteAll();
+        stockInformationRepository.deleteAll();
+        memberRepository.deleteAll();
+    }
+
     @Test
     public void findByTickerTest() {
 
         //given
-        String ticker = "SPCE";
+        String ticker = "QQQ";
 
         //when
         List<StockPersonal> byTicker = stockPersonalRepository.findByTicker(ticker);
@@ -109,7 +119,7 @@ class StockPersonalRepositoryTest {
     @Test
     public void findByUsernameTest() {
         //given
-        String username = "testA";
+        String username = "testStockPersonalRepository";
 
         //when
         List<StockPersonal> byUsername = stockPersonalRepository.findByUsername(username);
@@ -121,8 +131,8 @@ class StockPersonalRepositoryTest {
     @Test
     public void findByUsernameAndTickerTest() throws Exception {
         //given
-        String username = "testA";
-        String ticker = "SPCE";
+        String username = "testStockPersonalRepository";
+        String ticker = "QQQ";
 
         //when
         List<StockPersonal> byUsernameAndTicker = stockPersonalRepository.findByUsernameAndTicker(username, ticker);

@@ -1,6 +1,7 @@
 package com.moneybook.moneybook.domain.stock;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,13 +15,15 @@ import java.util.List;
 class StockInformationRepositoryTest {
 
     @Autowired
-    EntityManager em;
-
-    @Autowired
     StockInformationRepository stockInformationRepository;
 
+    @AfterEach
+    public void cleanup() {
+        stockInformationRepository.deleteAll();
+    }
+
     @Test
-    public void findByTickerTest() throws Exception {
+    public void findByTickerTest(){
         //given
         StockInformation stock = StockInformation.builder()
                 .ticker("SPCE")

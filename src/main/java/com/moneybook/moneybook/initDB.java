@@ -19,7 +19,7 @@ public class initDB {
 
     private final InitService initService;
 
-    @PostConstruct
+    //@PostConstruct
     public void init(){
         initService.dbInit();
     }
@@ -81,18 +81,6 @@ public class initDB {
 
             Long stockQuantity = 0L;
 
-            for(int i=0; i<100; i++) {
-                em.persist(StockTrading.builder()
-                        .member(member)
-                        .stockInformation(stock)
-                        .price(10L + i)
-                        .stockQuantity(100L + i)
-                        .tradingDate(LocalDateTime.now())
-                        .build());
-
-                stockQuantity += 100L+i;
-            }
-
             StockPersonal stockPersonal = StockPersonal.builder()
                     .member(member)
                     .stockInformation(stock)
@@ -101,12 +89,9 @@ public class initDB {
                     .build();
             em.persist(stockPersonal);
 
-            stockQuantity = 0L;
-
             for(int i=0; i<100; i++) {
                 em.persist(StockTrading.builder()
-                        .member(member2)
-                        .stockInformation(stock)
+                        .stockPersonal(stockPersonal)
                         .price(10L + i)
                         .stockQuantity(100L + i)
                         .tradingDate(LocalDateTime.now())
@@ -115,6 +100,10 @@ public class initDB {
                 stockQuantity += 100L+i;
             }
 
+
+            stockQuantity = 0L;
+
+
             StockPersonal stockPersonal2 = StockPersonal.builder()
                     .member(member2)
                     .stockInformation(stock)
@@ -122,6 +111,17 @@ public class initDB {
                     .currentQuantity(stockQuantity)
                     .build();
             em.persist(stockPersonal2);
+
+            for(int i=0; i<100; i++) {
+                em.persist(StockTrading.builder()
+                        .stockPersonal(stockPersonal2)
+                        .price(10L + i)
+                        .stockQuantity(100L + i)
+                        .tradingDate(LocalDateTime.now())
+                        .build());
+
+                stockQuantity += 100L+i;
+            }
         }
     }
 }

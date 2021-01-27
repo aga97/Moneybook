@@ -16,7 +16,7 @@ public class StockTradingReadResponseDto {
 
     public StockTradingReadResponseDto(StockTrading entity) {
         this.id = entity.getId();
-        this.ticker = entity.getStockInformation().getTicker();
+        this.ticker = entity.getStockPersonal().getStockInformation().getTicker();
         this.price = entity.getPrice();
         this.stockQuantity = entity.getStockQuantity();
         this.day = entity.getTradingDate().getDayOfMonth();

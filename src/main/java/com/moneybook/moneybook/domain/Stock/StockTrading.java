@@ -20,12 +20,8 @@ public class StockTrading extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock_information_id")
-    private StockInformation stockInformation;
+    @JoinColumn(name = "stock_personal_id")
+    private StockPersonal stockPersonal;
 
     @Column(nullable = false)
     private Long price;
@@ -37,15 +33,20 @@ public class StockTrading extends BaseTimeEntity {
     private LocalDateTime tradingDate;
 
     @Builder
-    public StockTrading(Member member, StockInformation stockInformation, Long price, Long stockQuantity, LocalDateTime tradingDate) {
-        this.member = member;
-        this.stockInformation = stockInformation;
+    public StockTrading(StockPersonal stockPersonal, Long price, Long stockQuantity, LocalDateTime tradingDate) {
+        this.stockPersonal = stockPersonal;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.tradingDate = tradingDate;
     }
 
+    public void changeTradingPrice(Long newPrice){
+        this.price = newPrice;
+    }
+
     public void changeStockQuantity(Long newStockQuantity){
+        stockPersonal.tradeCurrentQuantity(-stockQuantity);
+        stockPersonal.tradeCurrentQuantity(newStockQuantity);
         this.stockQuantity = newStockQuantity;
     }
 

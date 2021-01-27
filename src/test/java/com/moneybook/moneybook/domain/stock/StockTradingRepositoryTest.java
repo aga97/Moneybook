@@ -3,6 +3,7 @@ package com.moneybook.moneybook.domain.stock;
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ class StockTradingRepositoryTest {
     StockInformationRepository stockInformationRepository;
 
     @Autowired
+    StockPersonalRepository stockPersonalRepository;
+
+    @Autowired
     StockTradingRepository stockTradingRepository;
 
     @BeforeEach
@@ -37,13 +41,6 @@ class StockTradingRepositoryTest {
                 .email("test@test1")
                 .build();
         memberRepository.save(member1);
-
-        Member member2 = Member.builder()
-                .username("testB")
-                .password("pw")
-                .email("test@test2")
-                .build();
-        memberRepository.save(member2);
 
         StockInformation stock1 = StockInformation.builder()
                 .ticker("SPCE")
@@ -59,41 +56,39 @@ class StockTradingRepositoryTest {
                 .build();
         stockInformationRepository.save(stock2);
 
-        StockTrading trading1 = StockTrading.builder()
+        StockPersonal stockPersonal1 = StockPersonal.builder()
                 .member(member1)
                 .stockInformation(stock1)
-                .price(1000L)
-                .stockQuantity(10L)
-                .tradingDate(LocalDateTime.of(2021, 1, 1, 0, 0))
+                .targetQuantity(100L)
+                .currentQuantity(10L)
                 .build();
-        stockTradingRepository.save(trading1);
+        stockPersonalRepository.save(stockPersonal1);
 
-        StockTrading trading2 = StockTrading.builder()
+        StockPersonal stockPersonal2 = StockPersonal.builder()
                 .member(member1)
                 .stockInformation(stock2)
-                .price(1000L)
-                .stockQuantity(10L)
-                .tradingDate(LocalDateTime.of(2021, 1, 1, 0, 0))
+                .targetQuantity(100L)
+                .currentQuantity(10L)
                 .build();
-        stockTradingRepository.save(trading2);
+        stockPersonalRepository.save(stockPersonal1);
 
-        StockTrading trading3 = StockTrading.builder()
-                .member(member2)
-                .stockInformation(stock1)
-                .price(1000L)
-                .stockQuantity(10L)
-                .tradingDate(LocalDateTime.of(2021, 2, 1, 0, 0))
-                .build();
-        stockTradingRepository.save(trading3);
+        for(int i=0; i<10; i++) {
+            StockTrading trading = StockTrading.builder()
+                    .stockPersonal(stockPersonal1)
+                    .price(1000L)
+                    .stockQuantity(10L)
+                    .tradingDate(LocalDateTime.of(2021, i+1, 1, 0, 0))
+                    .build();
+            stockTradingRepository.save(trading);
+        }
+    }
 
-        StockTrading trading4 = StockTrading.builder()
-                .member(member2)
-                .stockInformation(stock2)
-                .price(1000L)
-                .stockQuantity(10L)
-                .tradingDate(LocalDateTime.of(2021, 2, 1, 0, 0))
-                .build();
-        stockTradingRepository.save(trading4);
+    @AfterEach
+    public void cleanup() {
+        stockTradingRepository.deleteAll();
+        stockPersonalRepository.deleteAll();
+        memberRepository.deleteAll();
+        stockInformationRepository.deleteAll();
     }
 
     @Test
@@ -107,6 +102,6 @@ class StockTradingRepositoryTest {
         List<StockTrading> byUsernameAndDate = stockTradingRepository.findByUsernameAndDate(username, year, month);
 
         //then
-        Assertions.assertThat(byUsernameAndDate.size()).isEqualTo(2);
+        Assertions.assertThat(byUsernameAndDate.size()).isEqualTo(1);
     }
 }

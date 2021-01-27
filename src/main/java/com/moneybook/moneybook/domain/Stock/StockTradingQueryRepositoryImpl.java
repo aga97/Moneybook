@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.moneybook.moneybook.domain.stock.QStockPersonal.stockPersonal;
 import static com.moneybook.moneybook.domain.stock.QStockTrading.stockTrading;
 
 public class StockTradingQueryRepositoryImpl implements StockTradingQueryRepository{
@@ -22,6 +23,7 @@ public class StockTradingQueryRepositoryImpl implements StockTradingQueryReposit
     public List<StockTrading> findByUsernameAndDate(String username, Integer year, Integer month) {
         return queryFactory
                 .selectFrom(stockTrading)
+                .join(stockTrading.stockPersonal, stockPersonal)
                 .where(
                         usernameEq(username),
                         yearMonthEq(year, month)
@@ -30,7 +32,7 @@ public class StockTradingQueryRepositoryImpl implements StockTradingQueryReposit
     }
 
     private BooleanExpression usernameEq(String username){
-        return StringUtils.hasText(username) ? stockTrading.member.username.eq(username) : null;
+        return StringUtils.hasText(username) ? stockTrading.stockPersonal.member.username.eq(username) : null;
     }
     private BooleanExpression yearMonthEq(Integer year, Integer month){
         if(month < 1 || month > 12){
