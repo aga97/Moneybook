@@ -17,15 +17,4 @@ public class StockTradingSaveRequestDto {
     private Integer year;
     private Integer month;
     private Integer day;
-
-    @Builder
-    public StockTradingSaveRequestDto(String username, String ticker, Long price, Long stockQuantity, Integer year, Integer month, Integer day) {
-        this.username = username;
-        this.ticker = ticker;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
 }

@@ -1,4 +1,4 @@
-package com.moneybook.moneybook.dto.customtag;
+package com.moneybook.moneybook.dto.tag;
 
 import com.moneybook.moneybook.domain.tag.CustomTag;
 import lombok.Data;
@@ -10,8 +10,8 @@ public class CustomTagReadResponseDto {
     private Long id;
     private String tag;
 
-    public CustomTagReadResponseDto(CustomTag entity) {
-        this.id = entity.getId();
-        this.tag = entity.getTag();
+    public CustomTagReadResponseDto(CustomTag customTag) {
+        this.id = customTag.getId();
+        this.tag = customTag.getTag();
     }
 }

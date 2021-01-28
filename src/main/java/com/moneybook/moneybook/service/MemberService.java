@@ -18,12 +18,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long join(MemberSaveRequestDto member) {
+    public Long join(MemberSaveRequestDto requestDto) {
 
         Member memberEntity = Member.builder()
-                .username(member.getUsername())
-                .password(member.getPassword())
-                .email(member.getEmail())
+                .username(requestDto.getUsername())
+                .password(requestDto.getPassword())
+                .email(requestDto.getEmail())
                 .build();
         validateDuplicateMember(memberEntity);
         return memberRepository.save(memberEntity).getId();

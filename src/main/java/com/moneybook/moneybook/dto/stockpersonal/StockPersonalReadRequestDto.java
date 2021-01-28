@@ -7,11 +7,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class StockPersonalReadRequestDto {
-
     private String username;
-
-    @Builder
-    public StockPersonalReadRequestDto(String username) {
-        this.username = username;
-    }
 }
