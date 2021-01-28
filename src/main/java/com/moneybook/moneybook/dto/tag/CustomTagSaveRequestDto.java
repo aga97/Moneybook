@@ -9,4 +9,10 @@ import lombok.NoArgsConstructor;
 public class CustomTagSaveRequestDto {
     private String username;
     private String tag;
+
+    @Builder
+    public CustomTagSaveRequestDto(String username, String tag) {
+        this.username = username;
+        this.tag = tag;
+    }
 }

@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,11 +49,11 @@ class StockPersonalServiceTest {
                 .password("pw")
                 .email("ttt")
                 .build());
-        stockInformationService.save(StockInformationSaveRequestDto.builder()
+        /*stockInformationService.save(StockInformationSaveRequestDto.builder()
                 .ticker("SPCE")
                 .currency("USD")
                 .currentPrice(32.9)
-                .build());
+                .build());*/
     }
 
     @AfterEach
@@ -63,7 +64,7 @@ class StockPersonalServiceTest {
     }
 
     @Test
-    public void saveAndFindByUsername(){
+    public void saveAndFindByUsername() {
         //given
         StockPersonalSaveRequestDto saveRequestDto = StockPersonalSaveRequestDto.builder()
                 .username("testStockPersonal")
@@ -104,7 +105,7 @@ class StockPersonalServiceTest {
 
         //when
         Long updateId = stockPersonalService.updateAll(updateDto);
-        StockPersonal stockPersonal = stockPersonalRepository.findById(updateId).get();
+        StockPersonal stockPersonal = stockPersonalRepository.findById(updateId).orElseThrow();
 
         //then
         assertThat(stockPersonal.getTargetQuantity()).isEqualTo(1000L);

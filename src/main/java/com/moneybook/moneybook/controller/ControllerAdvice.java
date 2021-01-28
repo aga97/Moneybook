@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
@@ -56,5 +57,12 @@ public class ControllerAdvice {
         ExceptionResponseBody responseBody =
                 new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "invalid username");
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ExceptionResponseBody> io() {
+        ExceptionResponseBody responseBody =
+                new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.SERVICE_UNAVAILABLE, "yahoo finance io exception");
+        return new ResponseEntity<>(responseBody, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

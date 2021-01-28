@@ -12,4 +12,12 @@ public class StockPersonalSaveRequestDto {
     private String ticker;
     private Long targetQuantity;
     private Long currentQuantity;
+
+    @Builder
+    public StockPersonalSaveRequestDto(String username, String ticker, Long targetQuantity, Long currentQuantity) {
+        this.username = username;
+        this.ticker = ticker;
+        this.targetQuantity = targetQuantity;
+        this.currentQuantity = currentQuantity;
+    }
 }

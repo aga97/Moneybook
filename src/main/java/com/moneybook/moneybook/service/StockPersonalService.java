@@ -6,6 +6,7 @@ import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockInformationRepository;
 import com.moneybook.moneybook.domain.stock.StockPersonal;
 import com.moneybook.moneybook.domain.stock.StockPersonalRepository;
+import com.moneybook.moneybook.dto.stockinformation.StockInformationSaveRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadResponseDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalSaveRequestDto;
@@ -17,7 +18,10 @@ import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class StockPersonalService {
     private final MemberRepository memberRepository;
     private final StockInformationRepository stockInformationRepository;
 
+    private final StockInformationService stockInformationService;
     @Transactional
     public Long save(StockPersonalSaveRequestDto stock) {
 
@@ -36,8 +41,26 @@ public class StockPersonalService {
         if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + stock.getUsername());
         List<StockInformation> findStock = stockInformationRepository.findByTicker(stock.getTicker());
 
-        ////////// 주식이 없으면 api로 불러옴(미구현) 아예 없는 티커일때 에러
-        if(findStock.isEmpty()) throw new InvalidTickerException("not exist ticker");
+        ////////// 주식이 db에 없으면 api로 불러옴 아예 없는 티커일때 에러
+        if(findStock.isEmpty()) {
+            Stock apiFindStock = null;
+            try {
+                apiFindStock = YahooFinance.get(stock.getTicker());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(apiFindStock == null){
+                throw new InvalidTickerException("not exist ticker");
+            }
+
+            stockInformationService.save(StockInformationSaveRequestDto.builder()
+                    .ticker(stock.getTicker())
+                    .currentPrice(apiFindStock.getQuote().getPrice().doubleValue())
+                    .currency(apiFindStock.getCurrency())
+                    .build());
+
+            findStock = stockInformationRepository.findByTicker(stock.getTicker());
+        }
         ///////////////
 
         StockPersonal stockPersonal = StockPersonal.builder()

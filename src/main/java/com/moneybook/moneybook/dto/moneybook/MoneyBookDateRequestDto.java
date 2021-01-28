@@ -1,5 +1,6 @@
 package com.moneybook.moneybook.dto.moneybook;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,4 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MoneyBookDateRequestDto {
     private String username;
+
+    @Builder
+    public MoneyBookDateRequestDto(String username) {
+        this.username = username;
+    }
 }

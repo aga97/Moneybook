@@ -17,7 +17,7 @@ public class MoneyBookApplication {
 	}
 
 	@Bean
-	JPAQueryFactory jpaQueryFactory(EntityManager em){
+	JPAQueryFactory jpaQueryFactory(EntityManager em) {
 		return new JPAQueryFactory(em);
 	}
 }

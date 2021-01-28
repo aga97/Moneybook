@@ -5,12 +5,17 @@ import com.moneybook.moneybook.domain.moneybook.MoneyBook;
 import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockPersonal;
 import com.moneybook.moneybook.domain.stock.StockTrading;
+import com.moneybook.moneybook.dto.stockinformation.StockInformationSaveRequestDto;
+import com.moneybook.moneybook.service.StockInformationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.time.LocalDateTime;
 
 @Component
@@ -19,18 +24,22 @@ public class initDB {
 
     private final InitService initService;
 
+
     @PostConstruct
     public void init(){
-        initService.dbInit();
+
+        //initService.testDbInit();
     }
 
     @Component
     @Transactional
     @RequiredArgsConstructor
     static class InitService{
-        private final EntityManager em;
 
-        public void dbInit(){
+        private final EntityManager em;
+        private final StockInformationService stockInformationService;
+
+        public void testDbInit(){
             Member member = Member.builder()
                     .username("userA")
                     .password("password")
