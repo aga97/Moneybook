@@ -17,7 +17,8 @@ public class MoneyBookApiController {
     private final MoneyBookService moneyBookService;
 
     @GetMapping("/api/v1/moneybook")
-    public List<MoneyBookReadResponseDto> findByUsername(@RequestBody MoneyBookReadRequestDto requestDto){
+    public List<MoneyBookReadResponseDto> findByUsername(@RequestBody MoneyBookReadRequestDto requestDto) {
+
         return moneyBookService.findAll(requestDto);
     }
 

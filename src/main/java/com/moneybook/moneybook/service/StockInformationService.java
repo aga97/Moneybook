@@ -3,6 +3,8 @@ package com.moneybook.moneybook.service;
 import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockInformationRepository;
 import com.moneybook.moneybook.dto.stockinformation.StockInformationSaveRequestDto;
+import com.moneybook.moneybook.exceptions.DuplicatedStockException;
+import com.moneybook.moneybook.exceptions.InvalidTickerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,7 @@ public class StockInformationService {
     private void validateDuplicateStock(StockInformation stockInformation){
         List<StockInformation> findStocks = stockInformationRepository.findByTicker(stockInformation.getTicker());
         if(!findStocks.isEmpty()){
-            throw new IllegalStateException("already exist stock");
+            throw new DuplicatedStockException("already exist stock. check ticker=" + stockInformation.getTicker());
         }
     }
 
@@ -40,7 +42,7 @@ public class StockInformationService {
     public void updateCurrentPrice(String ticker, Double currentPrice){
         List<StockInformation> findStock = stockInformationRepository.findByTicker(ticker);
         if(findStock.isEmpty()) {
-            throw new IllegalStateException("not exist stock");
+            throw new InvalidTickerException("not exist stock. check ticker=" + ticker);
         }
         findStock.get(0).changeCurrentPrice(currentPrice);
     }
@@ -49,7 +51,7 @@ public class StockInformationService {
     public void deleteStockInformation(String ticker) {
         List<StockInformation> findStock = stockInformationRepository.findByTicker(ticker);
         if(findStock.isEmpty()) {
-            throw new IllegalStateException("not exist stock");
+            throw new InvalidTickerException("not exist stock. check ticker=" + ticker);
         }
         stockInformationRepository.delete(findStock.get(0));
     }

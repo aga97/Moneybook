@@ -1,11 +1,8 @@
 package com.moneybook.moneybook.service;
 
-import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
 import com.moneybook.moneybook.dto.member.MemberSaveRequestDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -25,9 +21,6 @@ class MemberServiceTest {
 
     @Autowired
     MemberRepository memberRepository;
-
-    @Autowired
-    EntityManager em;
 
     @AfterEach
     public void cleanup() {

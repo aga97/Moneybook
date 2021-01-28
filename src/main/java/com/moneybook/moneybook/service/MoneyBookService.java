@@ -8,6 +8,8 @@ import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookSaveRequestDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookUpdateRequestDto;
+import com.moneybook.moneybook.exceptions.InvalidIdException;
+import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +28,7 @@ public class MoneyBookService {
     public Long save(MoneyBookSaveRequestDto moneyBook) {
 
         List<Member> findMember = memberRepository.findByUsername(moneyBook.getUsername());
-        if(findMember.isEmpty()) throw new IllegalArgumentException("not exist username");
+        if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + moneyBook.getUsername());
 
         MoneyBook moneyBookEntity = MoneyBook.builder()
                 .member(findMember.get(0))
@@ -56,7 +58,7 @@ public class MoneyBookService {
     @Transactional
     public Long updateAll(MoneyBookUpdateRequestDto requestDto){
         MoneyBook moneyBook = moneyBookRepository.findById(requestDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist id. check id=" + requestDto.getId()));
 
         moneyBook.changeDate(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(),
                 requestDto.getDay(), 0, 0));
@@ -70,14 +72,14 @@ public class MoneyBookService {
     @Transactional
     public void updateContext(Long id, String context) {
         MoneyBook moneyBook = moneyBookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist id. check id=" + id));
         moneyBook.changeContext(context);
     }
 
     @Transactional
     public void updateAmount(Long id, Long amount) {
         MoneyBook moneyBook = moneyBookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist id. check id=" + id));
         moneyBook.changeAmount(amount);
     }
 

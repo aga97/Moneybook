@@ -2,8 +2,6 @@ package com.moneybook.moneybook.domain.stock;
 
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
-import org.aspectj.lang.annotation.After;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 
 import java.util.List;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StockPersonalRepositoryTest {
@@ -129,7 +125,7 @@ class StockPersonalRepositoryTest {
     }
 
     @Test
-    public void findByUsernameAndTickerTest() throws Exception {
+    public void findByUsernameAndTickerTest(){
         //given
         String username = "testStockPersonalRepository";
         String ticker = "QQQ";

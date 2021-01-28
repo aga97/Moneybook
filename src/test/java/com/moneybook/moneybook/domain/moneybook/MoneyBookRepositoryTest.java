@@ -2,29 +2,18 @@ package com.moneybook.moneybook.domain.moneybook;
 
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
-import com.moneybook.moneybook.domain.stock.StockInformation;
-import com.moneybook.moneybook.domain.stock.StockPersonal;
-import com.moneybook.moneybook.domain.stock.StockTrading;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
 class MoneyBookRepositoryTest {
-
-    @Autowired
-    EntityManager em;
 
     @Autowired
     MoneyBookRepository moneyBookRepository;
@@ -41,8 +30,8 @@ class MoneyBookRepositoryTest {
     public void findByUsernameAndDateTest() {
         //given
         String username = "userTest";
-        Integer year = 2021;
-        Integer month = 1;
+        int year = 2021;
+        int month = 1;
 
         Member member = memberRepository.save(Member.builder()
                 .username(username)

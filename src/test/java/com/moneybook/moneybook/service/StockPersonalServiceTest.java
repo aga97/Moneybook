@@ -1,7 +1,6 @@
 package com.moneybook.moneybook.service;
 
 import com.moneybook.moneybook.domain.member.MemberRepository;
-import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockInformationRepository;
 import com.moneybook.moneybook.domain.stock.StockPersonal;
 import com.moneybook.moneybook.domain.stock.StockPersonalRepository;
@@ -11,7 +10,6 @@ import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadResponseDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalSaveRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalUpdateRequestDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StockPersonalServiceTest {
@@ -89,7 +86,7 @@ class StockPersonalServiceTest {
     }
 
     @Test
-    public void updateAll() throws Exception {
+    public void updateAll(){
         //given
         StockPersonalSaveRequestDto saveRequestDto = StockPersonalSaveRequestDto.builder()
                 .username("testStockPersonal")
@@ -115,7 +112,7 @@ class StockPersonalServiceTest {
     }
 
     @Test
-    public void deleteStockPersonal() throws Exception {
+    public void deleteStockPersonal(){
         //given
         StockPersonalSaveRequestDto saveRequestDto = StockPersonalSaveRequestDto.builder()
                 .username("testStockPersonal")

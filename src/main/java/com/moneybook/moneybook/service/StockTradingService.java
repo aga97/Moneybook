@@ -1,12 +1,11 @@
 package com.moneybook.moneybook.service;
 
-import com.moneybook.moneybook.domain.member.Member;
-import com.moneybook.moneybook.domain.member.MemberRepository;
 import com.moneybook.moneybook.domain.stock.*;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingReadRequestDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingReadResponseDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingSaveRequestDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingUpdateRequestDto;
+import com.moneybook.moneybook.exceptions.InvalidIdException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,7 @@ public class StockTradingService {
     public Long save(StockTradingSaveRequestDto requestDto) {
 
         List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(requestDto.getUsername(), requestDto.getTicker());
-        if(stockPersonal.isEmpty()) {throw new IllegalArgumentException("not exist stock_personal");}
+        if(stockPersonal.isEmpty()) {throw new InvalidIdException("not exist stock_personal. check username and ticker");}
 
         Long tradingQuantity = requestDto.getStockQuantity();
         stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);
@@ -59,7 +58,7 @@ public class StockTradingService {
     @Transactional
     public Long updateAll(StockTradingUpdateRequestDto requestDto) {
         StockTrading stockTrading = stockTradingRepository.findById(requestDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist stock_personal. check id"));
 
         stockTrading.changeTradingPrice(requestDto.getPrice());
         stockTrading.changeStockQuantity(requestDto.getStockQuantity());
@@ -71,7 +70,7 @@ public class StockTradingService {
     @Transactional
     public Long deleteStockTrading(Long id) {
         StockTrading stockTrading = stockTradingRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist stock_personal. check id"));
 
         Long tradingQuantity = stockTrading.getStockQuantity();
         stockTrading.getStockPersonal().tradeCurrentQuantity(-tradingQuantity);

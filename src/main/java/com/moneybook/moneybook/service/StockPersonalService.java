@@ -10,6 +10,10 @@ import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadResponseDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalSaveRequestDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalUpdateRequestDto;
+import com.moneybook.moneybook.exceptions.DuplicatedStockException;
+import com.moneybook.moneybook.exceptions.InvalidIdException;
+import com.moneybook.moneybook.exceptions.InvalidTickerException;
+import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +33,11 @@ public class StockPersonalService {
     public Long save(StockPersonalSaveRequestDto stock) {
 
         List<Member> findMember = memberRepository.findByUsername(stock.getUsername());
-        if(findMember.isEmpty()) throw new IllegalArgumentException("not exist username");
+        if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + stock.getUsername());
         List<StockInformation> findStock = stockInformationRepository.findByTicker(stock.getTicker());
 
         ////////// 주식이 없으면 api로 불러옴(미구현) 아예 없는 티커일때 에러
-        if(findStock.isEmpty()) throw new IllegalArgumentException("not exist ticker");
+        if(findStock.isEmpty()) throw new InvalidTickerException("not exist ticker");
         ///////////////
 
         StockPersonal stockPersonal = StockPersonal.builder()
@@ -54,7 +58,7 @@ public class StockPersonalService {
                 stockPersonal.getStockInformation().getTicker()
         );
         if(!findStocks.isEmpty()){
-            throw new IllegalStateException("already exist stock");
+            throw new DuplicatedStockException("already exist stock. check ticker="+ stockPersonal.getStockInformation().getTicker());
         }
     }
 
@@ -73,7 +77,7 @@ public class StockPersonalService {
     @Transactional
     public Long updateAll(StockPersonalUpdateRequestDto requestDto) {
         StockPersonal stockPersonal = stockPersonalRepository.findById(requestDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("not exist row"));
+                .orElseThrow(() -> new InvalidIdException("not exist stock_personal. check id=" + requestDto.getId()));
 
         stockPersonal.changeTargetQuantity(requestDto.getTargetQuantity());
         stockPersonal.tradeCurrentQuantity(requestDto.getCurrentQuantity());

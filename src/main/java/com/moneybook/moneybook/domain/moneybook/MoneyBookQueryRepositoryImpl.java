@@ -3,6 +3,8 @@ package com.moneybook.moneybook.domain.moneybook;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
 import com.moneybook.moneybook.dto.moneybook.QMoneyBookReadResponseDto;
+import com.moneybook.moneybook.exceptions.InvalidDateException;
+import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.util.StringUtils;
@@ -51,11 +53,16 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
     }
 
     private BooleanExpression usernameEq(String username){
-        return StringUtils.hasText(username) ? moneyBook.member.username.eq(username) : null;
+
+        if(!StringUtils.hasText(username)){
+            throw new InvalidUsernameException("not valid username. username=" + username);
+        }
+
+        return moneyBook.member.username.eq(username);
     }
     private BooleanExpression yearMonthEq(Integer year, Integer month){
         if(month < 1 || month > 12){
-            throw new IllegalArgumentException("out of bounce month=" + month);
+            throw new InvalidDateException("not valid month. month=" + month);
         }
 
         LocalDateTime firstDate = LocalDateTime.of(year, month, 1, 0, 0);

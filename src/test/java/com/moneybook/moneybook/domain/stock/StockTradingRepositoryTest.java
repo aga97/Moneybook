@@ -9,17 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @SpringBootTest
 class StockTradingRepositoryTest {
-
-    @Autowired
-    EntityManager em;
 
     @Autowired
     MemberRepository memberRepository;
@@ -92,7 +87,7 @@ class StockTradingRepositoryTest {
     }
 
     @Test
-    public void findByUsernameAndDate() throws Exception {
+    public void findByUsernameAndDate(){
         //given
         String username = "testA";
         Integer year = 2021;

@@ -3,6 +3,8 @@ package com.moneybook.moneybook.service;
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
 import com.moneybook.moneybook.dto.member.MemberSaveRequestDto;
+import com.moneybook.moneybook.exceptions.DuplicatedMemberException;
+import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,7 @@ public class MemberService {
 
         List<Member> findMembers = memberRepository.findByUsername(member.getUsername());
         if(!findMembers.isEmpty()){
-            throw new IllegalStateException("already exist member");
+            throw new DuplicatedMemberException("already exist member. check username=" + member.getUsername());
         }
     }
 
@@ -40,7 +42,7 @@ public class MemberService {
     public void changePassword(String username, String password) {
         List<Member> findMember = memberRepository.findByUsername(username);
         if(findMember.isEmpty()) {
-            throw new IllegalStateException("not exist member");
+            throw new InvalidUsernameException("not exist member. check username=" + username);
         }
         findMember.get(0).changePassword(password);
     }
