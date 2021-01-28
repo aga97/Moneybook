@@ -4,10 +4,7 @@ import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
 import com.moneybook.moneybook.domain.moneybook.MoneyBook;
 import com.moneybook.moneybook.domain.moneybook.MoneyBookRepository;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookSaveRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookUpdateRequestDto;
+import com.moneybook.moneybook.dto.moneybook.*;
 import com.moneybook.moneybook.exceptions.InvalidIdException;
 import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +22,17 @@ public class MoneyBookService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long save(MoneyBookSaveRequestDto moneyBook) {
+    public Long save(MoneyBookSaveRequestDto requestDto) {
 
-        List<Member> findMember = memberRepository.findByUsername(moneyBook.getUsername());
-        if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + moneyBook.getUsername());
+        List<Member> findMember = memberRepository.findByUsername(requestDto.getUsername());
+        if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + requestDto.getUsername());
 
         MoneyBook moneyBookEntity = MoneyBook.builder()
                 .member(findMember.get(0))
-                .date(LocalDateTime.of(moneyBook.getYear(), moneyBook.getMonth(), moneyBook.getDay(), 0, 0))
-                .context(moneyBook.getContext())
-                .amount(moneyBook.getAmount())
-                .tag(moneyBook.getTag())
+                .date(LocalDateTime.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), 0, 0))
+                .context(requestDto.getContext())
+                .amount(requestDto.getAmount())
+                .tag(requestDto.getTag())
                 .build();
 
         return moneyBookRepository.save(moneyBookEntity).getId();
@@ -53,6 +50,24 @@ public class MoneyBookService {
         }
 
         return responseDto;
+    }
+
+    @Transactional(readOnly = true)
+    public MoneyBookDateResponseDto findMinMaxDateByUsername(MoneyBookDateRequestDto requestDto) {
+
+        List<Member> findMember = memberRepository.findByUsername(requestDto.getUsername());
+        if(findMember.isEmpty()) throw new InvalidUsernameException("not exist username. check username=" + requestDto.getUsername());
+
+        List<LocalDateTime> minMaxDate = moneyBookRepository.findMinMaxDateByUsername(requestDto.getUsername());
+        if(minMaxDate.isEmpty())
+            return MoneyBookDateResponseDto.builder().build();
+
+        return MoneyBookDateResponseDto.builder()
+                .minYear(minMaxDate.get(0).getYear())
+                .minMonth(minMaxDate.get(0).getMonthValue())
+                .maxYear(minMaxDate.get(1).getYear())
+                .maxMonth(minMaxDate.get(1).getMonthValue())
+                .build();
     }
 
     @Transactional

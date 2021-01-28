@@ -45,6 +45,13 @@ public class initDB {
                     .build();
             em.persist(member2);
 
+            Member member3 = Member.builder()
+                    .username("userC")
+                    .password("password")
+                    .email("test@test.com3")
+                    .build();
+            em.persist(member3);
+
             for(int i=0; i<100; i++) {
                 em.persist(MoneyBook.builder()
                         .member(member)
@@ -54,6 +61,22 @@ public class initDB {
                         .tag("test tag" + i)
                         .build());
             }
+
+            em.persist(MoneyBook.builder()
+                    .member(member)
+                    .date(LocalDateTime.of(2019, 11, 1, 0, 0))
+                    .context("test context")
+                    .amount(1000L)
+                    .tag("test tag")
+                    .build());
+
+            em.persist(MoneyBook.builder()
+                    .member(member)
+                    .date(LocalDateTime.of(2022, 1, 1, 0, 0))
+                    .context("test context")
+                    .amount(1000L)
+                    .tag("test tag")
+                    .build());
 
             for(int i=0; i<100; i++) {
                 em.persist(MoneyBook.builder()
@@ -79,7 +102,7 @@ public class initDB {
                     .build();
             em.persist(stock2);
 
-            Long stockQuantity = 0L;
+            long stockQuantity = 0L;
 
             StockPersonal stockPersonal = StockPersonal.builder()
                     .member(member)

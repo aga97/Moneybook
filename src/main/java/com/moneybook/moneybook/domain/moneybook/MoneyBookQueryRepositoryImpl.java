@@ -1,18 +1,22 @@
 package com.moneybook.moneybook.domain.moneybook;
 
+import com.moneybook.moneybook.domain.member.QMember;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
 import com.moneybook.moneybook.dto.moneybook.QMoneyBookReadResponseDto;
 import com.moneybook.moneybook.exceptions.InvalidDateException;
 import com.moneybook.moneybook.exceptions.InvalidUsernameException;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.moneybook.moneybook.domain.member.QMember.member;
 import static com.moneybook.moneybook.domain.moneybook.QMoneyBook.moneyBook;
 
 public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
@@ -50,6 +54,28 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
                         yearMonthEq(year, month)
                 )
                 .fetch();
+    }
+
+    @Override
+    public List<LocalDateTime> findMinMaxDateByUsername(String username) {
+        Tuple dateTimes = queryFactory
+                .select(moneyBook.date.min(), moneyBook.date.max())
+                .from(moneyBook)
+                .join(moneyBook.member, member)
+                .where(moneyBook.member.username.eq(username))
+                .fetchOne();
+
+        List<LocalDateTime> minMaxDates = new ArrayList<>();
+
+        //if dateTimes is empty, return empty List
+        if(dateTimes.get(moneyBook.date.min()) == null){
+            System.out.println("send empty list");
+            return minMaxDates;
+        }
+
+        minMaxDates.add(dateTimes.get(moneyBook.date.min()));
+        minMaxDates.add(dateTimes.get(moneyBook.date.max()));
+        return minMaxDates;
     }
 
     private BooleanExpression usernameEq(String username){

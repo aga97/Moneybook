@@ -1,9 +1,6 @@
 package com.moneybook.moneybook.controller;
 
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookSaveRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookUpdateRequestDto;
+import com.moneybook.moneybook.dto.moneybook.*;
 import com.moneybook.moneybook.service.MoneyBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +13,13 @@ public class MoneyBookApiController {
 
     private final MoneyBookService moneyBookService;
 
+    @GetMapping("/api/v1/date")
+    public MoneyBookDateResponseDto findMinMaxDateByUsername(@RequestBody MoneyBookDateRequestDto moneyBookDateRequestDto){
+        return moneyBookService.findMinMaxDateByUsername(moneyBookDateRequestDto);
+    }
+
     @GetMapping("/api/v1/moneybook")
     public List<MoneyBookReadResponseDto> findByUsername(@RequestBody MoneyBookReadRequestDto requestDto) {
-
         return moneyBookService.findAll(requestDto);
     }
 
