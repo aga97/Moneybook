@@ -25,7 +25,7 @@ public class CustomTagApiController {
         return customTagService.save(requestDto);
     }
 
-    @DeleteMapping("/api/v1/custim_tag/{id}")
+    @DeleteMapping("/api/v1/custom_tag/{id}")
     public Long deleteCustomTag(@PathVariable Long id) {
         customTagService.deleteCustomTag(id);
         return id;
