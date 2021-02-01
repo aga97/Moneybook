@@ -75,8 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/v1/join").permitAll()
-                .antMatchers("/logout").permitAll()
+                .antMatchers("/api/v1/join", "/logout").permitAll()
+                .antMatchers("/api/v1/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);

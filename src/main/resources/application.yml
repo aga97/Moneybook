@@ -16,6 +16,12 @@ spring:
         #spring.jpa.open-in-view: false
         use_sql_comments: true
 
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+
 logging:
   level:
     org.hibernate.SQL: debug
