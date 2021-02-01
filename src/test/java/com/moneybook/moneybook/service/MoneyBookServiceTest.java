@@ -4,10 +4,7 @@ import com.moneybook.moneybook.domain.member.MemberRepository;
 import com.moneybook.moneybook.domain.moneybook.MoneyBook;
 import com.moneybook.moneybook.domain.moneybook.MoneyBookRepository;
 import com.moneybook.moneybook.dto.member.MemberSaveRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookSaveRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookUpdateRequestDto;
+import com.moneybook.moneybook.dto.moneybook.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,6 +73,58 @@ class MoneyBookServiceTest {
         //then
         assertThat(all.size()).isEqualTo(1);
         assertThat(savedId).isEqualTo(all.get(0).getId());
+    }
+
+    @Test
+    void findMinMaxDate() {
+        //given
+        String username = "testMoneyBook";
+        MoneyBookSaveRequestDto saveRequestDto = MoneyBookSaveRequestDto.builder()
+                .username(username)
+                .amount(1000L)
+                .context("test context")
+                .tag("test tag")
+                .year(2020)
+                .month(3)
+                .day(1)
+                .build();
+        moneyBookService.save(saveRequestDto);
+
+        MoneyBookSaveRequestDto saveRequestDto2 = MoneyBookSaveRequestDto.builder()
+                .username(username)
+                .amount(1000L)
+                .context("test context")
+                .tag("test tag")
+                .year(2021)
+                .month(1)
+                .day(1)
+                .build();
+        moneyBookService.save(saveRequestDto2);
+
+        //when
+        MoneyBookDateResponseDto responseDto = moneyBookService.findMinMaxDateByUsername(MoneyBookDateRequestDto.builder()
+                .username(username)
+                .build());
+        //then
+        assertThat(responseDto.getMinYear()).isEqualTo(2020);
+        assertThat(responseDto.getMaxYear()).isEqualTo(2021);
+        assertThat(responseDto.getMinMonth()).isEqualTo(3);
+        assertThat(responseDto.getMaxMonth()).isEqualTo(1);
+    }
+
+    @Test
+    void EmptyMoneyBookFindMinMaxDate() {
+        //given
+        String username = "testMoneyBook";
+        //when
+        MoneyBookDateResponseDto responseDto = moneyBookService.findMinMaxDateByUsername(MoneyBookDateRequestDto.builder()
+                .username(username)
+                .build());
+        //then
+        assertThat(responseDto.getMinYear()).isEqualTo(null);
+        assertThat(responseDto.getMaxYear()).isEqualTo(null);
+        assertThat(responseDto.getMinMonth()).isEqualTo(null);
+        assertThat(responseDto.getMaxMonth()).isEqualTo(null);
     }
 
     @Test

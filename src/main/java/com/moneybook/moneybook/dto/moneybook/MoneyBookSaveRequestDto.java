@@ -12,21 +12,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MoneyBookSaveRequestDto {
     private String username;
-    private Integer year;
-    private Integer month;
-    private Integer day;
     private String context;
     private Long amount;
     private String tag;
+    private Integer year;
+    private Integer month;
+    private Integer day;
 
     @Builder
-    public MoneyBookSaveRequestDto(String username, Integer year, Integer month, Integer day, String context, Long amount, String tag) {
+    public MoneyBookSaveRequestDto(String username, String context, Long amount, String tag, Integer year, Integer month, Integer day) {
         this.username = username;
-        this.year = year;
-        this.month = month;
-        this.day = day;
         this.context = context;
         this.amount = amount;
         this.tag = tag;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 }

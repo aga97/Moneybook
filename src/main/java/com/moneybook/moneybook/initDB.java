@@ -5,17 +5,14 @@ import com.moneybook.moneybook.domain.moneybook.MoneyBook;
 import com.moneybook.moneybook.domain.stock.StockInformation;
 import com.moneybook.moneybook.domain.stock.StockPersonal;
 import com.moneybook.moneybook.domain.stock.StockTrading;
-import com.moneybook.moneybook.dto.stockinformation.StockInformationSaveRequestDto;
 import com.moneybook.moneybook.service.StockInformationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.time.LocalDateTime;
 
 @Component
@@ -24,11 +21,11 @@ public class initDB {
 
     private final InitService initService;
 
-
     @PostConstruct
     public void init(){
 
-        //initService.testDbInit();
+        //initService.loginTestInit();
+        initService.testDbInit();
     }
 
     @Component
@@ -38,25 +35,50 @@ public class initDB {
 
         private final EntityManager em;
         private final StockInformationService stockInformationService;
+        private final PasswordEncoder passwordEncoder;
 
-        public void testDbInit(){
+        public void loginTestInit() {
+
+            String testPassword = "1111";
+            String encodedPassword = passwordEncoder.encode(testPassword);
+
             Member member = Member.builder()
                     .username("userA")
-                    .password("password")
+                    .password(encodedPassword)
                     .email("test@test.com")
                     .build();
             em.persist(member);
 
             Member member2 = Member.builder()
                     .username("userB")
-                    .password("password")
+                    .password(encodedPassword)
+                    .email("test@test.com2")
+                    .build();
+            em.persist(member2);
+        }
+
+        public void testDbInit(){
+
+            String testPassword = "1111";
+            String encodedPassword = passwordEncoder.encode(testPassword);
+
+            Member member = Member.builder()
+                    .username("userA")
+                    .password(encodedPassword)
+                    .email("test@test.com")
+                    .build();
+            em.persist(member);
+
+            Member member2 = Member.builder()
+                    .username("userB")
+                    .password(encodedPassword)
                     .email("test@test.com2")
                     .build();
             em.persist(member2);
 
             Member member3 = Member.builder()
                     .username("userC")
-                    .password("password")
+                    .password(encodedPassword)
                     .email("test@test.com3")
                     .build();
             em.persist(member3);

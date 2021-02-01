@@ -6,6 +6,7 @@ import com.moneybook.moneybook.dto.stocktrading.StockTradingReadResponseDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingSaveRequestDto;
 import com.moneybook.moneybook.dto.stocktrading.StockTradingUpdateRequestDto;
 import com.moneybook.moneybook.exceptions.InvalidIdException;
+import com.moneybook.moneybook.exceptions.InvalidTickerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class StockTradingService {
     public Long save(StockTradingSaveRequestDto requestDto) {
 
         List<StockPersonal> stockPersonal = stockPersonalRepository.findByUsernameAndTicker(requestDto.getUsername(), requestDto.getTicker());
-        if(stockPersonal.isEmpty()) {throw new InvalidIdException("not exist stock_personal. check username and ticker");}
+        if(stockPersonal.isEmpty()) {throw new InvalidTickerException("not exist stock_personal. check ticker");}
 
         Long tradingQuantity = requestDto.getStockQuantity();
         stockPersonal.get(0).tradeCurrentQuantity(tradingQuantity);

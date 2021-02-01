@@ -45,7 +45,12 @@ public class StockTradingQueryRepositoryImpl implements StockTradingQueryReposit
                 month == 10 || month == 12)
             lastDate = LocalDateTime.of(year, month, 31, 0, 0);
         else
+        if(month == 2){
+            lastDate = LocalDateTime.of(year, month, 28, 0, 0);
+        }
+        else
             lastDate = LocalDateTime.of(year, month, 30, 0, 0);
+
         return stockTrading.tradingDate.between(firstDate, lastDate);
     }
 

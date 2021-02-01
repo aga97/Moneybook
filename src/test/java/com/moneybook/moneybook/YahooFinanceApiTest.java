@@ -7,7 +7,7 @@ import yahoofinance.YahooFinance;
 import java.math.BigDecimal;
 
 
-class StockDataDownloadTest {
+class YahooFinanceApiTest {
 
     @Test
     public void downloadTest() throws Exception{

@@ -14,25 +14,25 @@ import java.util.*;
 public class MoneyBookReadResponseDto {
 
     private Long id;
-    private Integer day;
     private String context;
     private Long amount;
     private String tag;
+    private Integer day;
 
     @QueryProjection
-    public MoneyBookReadResponseDto(Long id, Integer day, String context, Long amount, String tag) {
+    public MoneyBookReadResponseDto(Long id, String context, Long amount, String tag, Integer day) {
         this.id = id;
-        this.day = day;
         this.context = context;
         this.amount = amount;
         this.tag = tag;
+        this.day = day;
     }
 
     public MoneyBookReadResponseDto(MoneyBook entity) {
         this.id = entity.getId();
-        this.day = entity.getDate().getDayOfMonth();
         this.context = entity.getContext();
         this.amount = entity.getAmount();
         this.tag = entity.getTag();
+        this.day = entity.getDate().getDayOfMonth();
     }
 }

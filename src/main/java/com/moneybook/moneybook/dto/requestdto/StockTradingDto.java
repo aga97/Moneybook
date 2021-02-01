@@ -1,4 +1,4 @@
-package com.moneybook.moneybook.dto.stocktrading;
+package com.moneybook.moneybook.dto.requestdto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StockTradingUpdateRequestDto {
+public class StockTradingDto {
 
-    private Long id;
+    private String ticker;
     private Long price;
     private Long stockQuantity;
     private Integer year;
@@ -16,8 +16,8 @@ public class StockTradingUpdateRequestDto {
     private Integer day;
 
     @Builder
-    public StockTradingUpdateRequestDto(Long id, Long price, Long stockQuantity, Integer year, Integer month, Integer day) {
-        this.id = id;
+    public StockTradingDto(String ticker, Long price, Long stockQuantity, Integer year, Integer month, Integer day) {
+        this.ticker = ticker;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.year = year;

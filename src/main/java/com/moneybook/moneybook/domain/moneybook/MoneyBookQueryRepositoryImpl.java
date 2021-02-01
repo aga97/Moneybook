@@ -32,10 +32,10 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
         return queryFactory
                 .select(new QMoneyBookReadResponseDto(
                         moneyBook.id,
-                        moneyBook.date.dayOfMonth(),
                         moneyBook.context,
                         moneyBook.amount,
-                        moneyBook.tag
+                        moneyBook.tag,
+                        moneyBook.date.dayOfMonth()
                 ))
                 .from(moneyBook)
                 .where(
@@ -97,7 +97,11 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
         month == 10 || month == 12)
             lastDate = LocalDateTime.of(year, month, 31, 0, 0);
         else
-            lastDate = LocalDateTime.of(year, month, 30, 0, 0);
+            if(month == 2){
+                lastDate = LocalDateTime.of(year, month, 28, 0, 0);
+            }
+            else
+                lastDate = LocalDateTime.of(year, month, 30, 0, 0);
         return moneyBook.date.between(firstDate, lastDate);
     }
 }

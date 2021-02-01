@@ -25,11 +25,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String role;
+
     @Builder
     public Member(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = "USER";
     }
 
     public void changePassword(String newPassword) {

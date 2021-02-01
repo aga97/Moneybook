@@ -1,4 +1,4 @@
-package com.moneybook.moneybook.dto.stockpersonal;
+package com.moneybook.moneybook.dto.requestdto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StockPersonalUpdateRequestDto {
+public class StockPersonalUpdateDto {
 
-    private Long id;
     private Long targetQuantity;
     private Long currentQuantity;
 
     @Builder
-    public StockPersonalUpdateRequestDto(Long id, Long targetQuantity, Long currentQuantity) {
-        this.id = id;
+    public StockPersonalUpdateDto(Long targetQuantity, Long currentQuantity) {
         this.targetQuantity = targetQuantity;
         this.currentQuantity = currentQuantity;
     }
