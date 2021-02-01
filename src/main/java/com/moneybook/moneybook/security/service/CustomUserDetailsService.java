@@ -2,8 +2,7 @@ package com.moneybook.moneybook.security.service;
 
 import com.moneybook.moneybook.domain.member.Member;
 import com.moneybook.moneybook.domain.member.MemberRepository;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.moneybook.moneybook.security.dto.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,11 +30,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Member member = findMember.get(0);
 
+        SessionUser sessionUser = new SessionUser(member);
+
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(member.getRole()));
 
-        MemberContext accountContext = new MemberContext(member, roles);
-
-        return accountContext;
+        return new AccountContext(sessionUser, roles);
     }
 }

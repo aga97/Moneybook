@@ -76,7 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/api/v1/join", "/logout").permitAll()
-                .antMatchers("/api/v1/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);

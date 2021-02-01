@@ -1,6 +1,6 @@
 package com.moneybook.moneybook.security.provider;
 
-import com.moneybook.moneybook.security.service.MemberContext;
+import com.moneybook.moneybook.security.service.AccountContext;
 import com.moneybook.moneybook.security.token.AjaxAuthenticationToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,7 +22,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String)authentication.getCredentials();
 
-        MemberContext accountContext = (MemberContext)userDetailsService.loadUserByUsername(username);
+        AccountContext accountContext = (AccountContext)userDetailsService.loadUserByUsername(username);
 
         if(!passwordEncoder.matches(password, accountContext.getPassword())) {
             throw new BadCredentialsException("BadCredentialsException");

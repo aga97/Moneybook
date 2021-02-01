@@ -2,6 +2,7 @@ package com.moneybook.moneybook.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moneybook.moneybook.domain.member.Member;
+import com.moneybook.moneybook.security.dto.SessionUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -18,13 +19,13 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-        Member account = (Member) authentication.getPrincipal();
+        SessionUser account = (SessionUser) authentication.getPrincipal();
 
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        objectMapper.writeValue(response.getWriter(), account.getId());
+        objectMapper.writeValue(response.getWriter(), account.getUsername());
     }
 }
