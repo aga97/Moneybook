@@ -1,6 +1,7 @@
 package com.moneybook.moneybook.domain.moneybook;
 
 import com.moneybook.moneybook.domain.member.QMember;
+import com.moneybook.moneybook.domain.stock.LastDateProvider;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
 import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
 import com.moneybook.moneybook.dto.moneybook.QMoneyBookReadResponseDto;
@@ -92,16 +93,8 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
         }
 
         LocalDateTime firstDate = LocalDateTime.of(year, month, 1, 0, 0);
-        LocalDateTime lastDate;
-        if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
-        month == 10 || month == 12)
-            lastDate = LocalDateTime.of(year, month, 31, 0, 0);
-        else
-            if(month == 2){
-                lastDate = LocalDateTime.of(year, month, 28, 0, 0);
-            }
-            else
-                lastDate = LocalDateTime.of(year, month, 30, 0, 0);
+        LocalDateTime lastDate = LastDateProvider.lastDate(year, month);
+
         return moneyBook.date.between(firstDate, lastDate);
     }
 }
