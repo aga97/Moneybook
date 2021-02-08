@@ -17,7 +17,7 @@ spring:
         use_sql_comments: true
 
   jackson:
-    property-naming-strategy: SNAKE_CASE
+    property-naming-strategy: LOWER_CASE
 
   session:
     store-type: jdbc
