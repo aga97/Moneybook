@@ -1,5 +1,6 @@
 package com.moneybook.moneybook.domain.moneybook;
 
+import com.moneybook.moneybook.domain.BaseTimeEntity;
 import com.moneybook.moneybook.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class MoneyBook {
+public class MoneyBook extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
