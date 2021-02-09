@@ -19,6 +19,13 @@ public class ControllerAdvice {
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DuplicatedEmailException.class)
+    public ResponseEntity<ExceptionResponseBody> dupEmail() {
+        ExceptionResponseBody responseBody =
+                new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "duplicated email");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(DuplicatedStockException.class)
     public ResponseEntity<ExceptionResponseBody> dupStock() {
         ExceptionResponseBody responseBody =

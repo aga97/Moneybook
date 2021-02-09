@@ -7,4 +7,6 @@ import java.util.*;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     List<Member> findByUsername(String username);
+
+    List<Member> findByEmail(String email);
 }
