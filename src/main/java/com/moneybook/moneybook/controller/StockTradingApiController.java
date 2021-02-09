@@ -3,10 +3,7 @@ package com.moneybook.moneybook.controller;
 import com.moneybook.moneybook.dto.requestdto.DateDto;
 import com.moneybook.moneybook.dto.requestdto.StockTradingDto;
 import com.moneybook.moneybook.dto.requestdto.StockTradingUpdateDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingReadRequestDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingReadResponseDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingSaveRequestDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingUpdateRequestDto;
+import com.moneybook.moneybook.dto.stocktrading.*;
 import com.moneybook.moneybook.security.token.AjaxAuthenticationToken;
 import com.moneybook.moneybook.service.StockTradingService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +28,17 @@ public class StockTradingApiController {
                 .build();
 
         return stockTradingService.findByUsernameAndDate(dto);
+    }
+
+    @GetMapping("/api/v1/stock_trading/{ticker}")
+    public List<StockTradingReadResponseDto> findByUsernameAndTicker(@PathVariable String ticker, Principal principal) {
+
+        StockTradingReadByTickerRequestDto dto = StockTradingReadByTickerRequestDto.builder()
+                .username(((AjaxAuthenticationToken) principal).getUsername())
+                .ticker(ticker)
+                .build();
+
+        return stockTradingService.findByUsernameAndTicker(dto);
     }
 
     @PostMapping("/api/v1/stock_trading")

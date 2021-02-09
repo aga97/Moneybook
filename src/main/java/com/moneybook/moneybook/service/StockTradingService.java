@@ -1,10 +1,7 @@
 package com.moneybook.moneybook.service;
 
 import com.moneybook.moneybook.domain.stock.*;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingReadRequestDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingReadResponseDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingSaveRequestDto;
-import com.moneybook.moneybook.dto.stocktrading.StockTradingUpdateRequestDto;
+import com.moneybook.moneybook.dto.stocktrading.*;
 import com.moneybook.moneybook.exceptions.InvalidIdException;
 import com.moneybook.moneybook.exceptions.InvalidTickerException;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +52,20 @@ public class StockTradingService {
 
         return responseDtos;
     }
+
+    @Transactional(readOnly = true)
+    public List<StockTradingReadResponseDto> findByUsernameAndTicker(StockTradingReadByTickerRequestDto requestDto) {
+        List<StockTrading> findStockTradings = stockTradingRepository.findByUsernameAndTicker(requestDto.getUsername(), requestDto.getTicker());
+
+        List<StockTradingReadResponseDto> responseDtos = new ArrayList<>();
+
+        for (StockTrading findStockTrading : findStockTradings) {
+            responseDtos.add(new StockTradingReadResponseDto(findStockTrading));
+        }
+
+        return responseDtos;
+    }
+
 
     @Transactional
     public Long updateAll(StockTradingUpdateRequestDto requestDto) {

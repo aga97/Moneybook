@@ -45,4 +45,16 @@ public class StockTradingQueryRepositoryImpl implements StockTradingQueryReposit
         return stockTrading.tradingDate.between(firstDate, lastDate);
     }
 
+    @Override
+    public List<StockTrading> findByUsernameAndTicker(String username, String ticker) {
+        return queryFactory
+                .selectFrom(stockTrading)
+                .join(stockTrading.stockPersonal, stockPersonal)
+                .where(
+                        usernameEq(username),
+                        stockTrading.stockPersonal.stockInformation.ticker.eq(ticker)
+                )
+                .fetch();
+    }
+    
 }
