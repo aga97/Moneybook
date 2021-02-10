@@ -1,7 +1,5 @@
 package com.moneybook.moneybook.controller;
 
-import com.moneybook.moneybook.domain.stock.StockPersonal;
-import com.moneybook.moneybook.domain.stock.StockPersonalRepository;
 import com.moneybook.moneybook.dto.requestdto.StockPersonalDto;
 import com.moneybook.moneybook.dto.requestdto.StockPersonalUpdateDto;
 import com.moneybook.moneybook.dto.stockpersonal.StockPersonalReadRequestDto;
@@ -46,7 +44,7 @@ public class StockPersonalApiController {
         StockPersonalUpdateRequestDto dto = StockPersonalUpdateRequestDto.builder()
                 .id(id)
                 .targetQuantity(requestDto.getTargetQuantity())
-                .currentQuantity(requestDto.getCurrentQuantity())
+                .currentQuantity(requestDto.getCurrentQuantityWeight())
                 .build();
 
         return stockPersonalService.updateAll(dto);

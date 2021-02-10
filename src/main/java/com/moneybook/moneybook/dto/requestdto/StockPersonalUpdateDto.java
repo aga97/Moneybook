@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 public class StockPersonalUpdateDto {
 
     private Long targetQuantity;
-    private Long currentQuantity;
+    private Long currentQuantityWeight;
 
     @Builder
-    public StockPersonalUpdateDto(Long targetQuantity, Long currentQuantity) {
+    public StockPersonalUpdateDto(Long targetQuantity, Long currentQuantityWeight) {
         this.targetQuantity = targetQuantity;
-        this.currentQuantity = currentQuantity;
+        this.currentQuantityWeight = currentQuantityWeight;
     }
 }
