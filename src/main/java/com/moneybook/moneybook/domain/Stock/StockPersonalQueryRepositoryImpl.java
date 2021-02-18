@@ -1,6 +1,7 @@
 package com.moneybook.moneybook.domain.stock;
 
 import com.moneybook.moneybook.domain.member.QMember;
+import com.moneybook.moneybook.exceptions.InvalidIdException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,8 @@ import java.util.List;
 import static com.moneybook.moneybook.domain.member.QMember.member;
 import static com.moneybook.moneybook.domain.stock.QStockInformation.stockInformation;
 import static com.moneybook.moneybook.domain.stock.QStockPersonal.stockPersonal;
+import static com.moneybook.moneybook.domain.stock.QStockTrading.*;
+
 
 public class StockPersonalQueryRepositoryImpl implements StockPersonalQueryRepository{
 
