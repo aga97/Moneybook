@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0d7b14d-8feb-4574-96f3-21f02324b351" name="Default Changelist" comment="packaging">
+    <list default="true" id="f0d7b14d-8feb-4574-96f3-21f02324b351" name="Default Changelist" comment="remove .idea">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614145766275</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="remove .idea">
+      <created>1614145858920</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1614145858920</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,7 +97,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="packaging" />
-    <option name="LAST_COMMIT_MESSAGE" value="packaging" />
+    <MESSAGE value="remove .idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove .idea" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1614145771416">

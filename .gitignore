@@ -40,3 +40,4 @@ build/
 ### h2 DB ###
 /backend/DB
 
+/.idea/
