@@ -72,4 +72,11 @@ public class ControllerAdvice {
                 new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.SERVICE_UNAVAILABLE, "yahoo finance io exception");
         return new ResponseEntity<>(responseBody, HttpStatus.SERVICE_UNAVAILABLE);
     }
+
+    @ExceptionHandler(InvalidStockQuantityException.class)
+    public ResponseEntity<ExceptionResponseBody> invalidStockQuantity() {
+        ExceptionResponseBody responseBody =
+                new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "invalid stock quantity");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
 }
