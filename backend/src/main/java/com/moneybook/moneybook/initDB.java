@@ -25,7 +25,7 @@ public class initDB {
     public void init(){
 
         //initService.loginTestInit();
-        //initService.testDbInit();
+        initService.testDbInit();
     }
 
     @Component

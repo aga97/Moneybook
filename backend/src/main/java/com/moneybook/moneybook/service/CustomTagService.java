@@ -51,6 +51,6 @@ public class CustomTagService {
     }
 
     @Transactional
-    public void deleteCustomTag(Long id) { customTagRepository.deleteById(id); }
+    public void deleteCustomTag(Long id) { customTagRepository.delById(id); }
 
 }

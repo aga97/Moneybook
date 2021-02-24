@@ -87,7 +87,7 @@ public class StockTradingService {
         Long tradingQuantity = stockTrading.getStockQuantity();
         stockTrading.getStockPersonal().tradeCurrentQuantity(-tradingQuantity);
 
-        stockTradingRepository.deleteById(id);
+        stockTradingRepository.delById(id);
         return id;
     }
 }

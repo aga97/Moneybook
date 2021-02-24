@@ -56,5 +56,13 @@ public class StockTradingQueryRepositoryImpl implements StockTradingQueryReposit
                 )
                 .fetch();
     }
+
+    @Override
+    public void delById(Long id){
+        queryFactory
+                .delete(stockTrading)
+                .where(stockTrading.id.eq(id))
+                .execute();
+    }
     
 }
