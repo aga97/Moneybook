@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f0d7b14d-8feb-4574-96f3-21f02324b351" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/moneybook.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_DDL/sql_ddl.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/MoneyBookApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/ControllerAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/CustomTagApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/MemberApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/MoneyBookApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/StockPersonalApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/controller/StockTradingApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/BaseTimeEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/LastDateProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockInformation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockInformationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockPersonalQueryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockPersonalQueryRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockTrading.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockTradingQueryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockTradingQueryRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/Stock/StockTradingRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/member/Member.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/member/MemberRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/moneybook/MoneyBook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/moneybook/MoneyBookQueryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/moneybook/MoneyBookQueryRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/moneybook/MoneyBookRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/stock/StockPersonal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/stock/StockPersonalRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/BaseTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/BaseTagRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/CustomTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/CustomTagQueryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/CustomTagQueryRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/domain/tag/CustomTagRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/member/MemberSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookDateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookDateResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookReadRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookReadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/moneybook/MoneyBookUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/CustomTagDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/DateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/MoneyBookDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/MoneyBookUpdateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/StockInformationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/StockPersonalDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/StockPersonalUpdateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/StockTradingDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/requestdto/StockTradingUpdateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stockinformation/StockInformationSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stockpersonal/StockPersonalReadRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stockpersonal/StockPersonalReadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stockpersonal/StockPersonalSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stockpersonal/StockPersonalUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stocktrading/StockTradingReadByTickerRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stocktrading/StockTradingReadRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stocktrading/StockTradingReadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stocktrading/StockTradingSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/stocktrading/StockTradingUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/tag/CustomTagReadRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/tag/CustomTagReadResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/dto/tag/CustomTagSaveRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/DuplicatedEmailException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/DuplicatedMemberException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/DuplicatedStockException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/ExceptionResponseBody.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/InvalidDateException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/InvalidIdException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/InvalidTickerException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/exceptions/InvalidUsernameException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/initDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/configs/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/dto/SessionUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/filter/AjaxLoginProcessingFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/handler/AjaxAuthenticationFailureHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/handler/AjaxAuthenticationSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/handler/CustomLogoutSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/provider/AjaxAuthenticationProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/service/AccountContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/service/CustomUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/security/token/AjaxAuthenticationToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/CustomTagService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/MemberService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/MoneyBookService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/StockInformationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/StockPersonalService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/moneybook/moneybook/service/StockTradingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/MoneyBookApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/YahooFinanceApiTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/domain/moneybook/MoneyBookRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/domain/stock/StockInformationRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/domain/stock/StockPersonalRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/domain/stock/StockTradingRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/service/MemberServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/service/MoneyBookServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/service/StockInformationServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/service/StockPersonalServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/moneybook/moneybook/service/StockTradingServiceTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\scs03\AppData\Local\JetBrains\Toolbox\apps\IDEA-C\ch-0\202.7660.26\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1oumqpbr877LxJmg2VEtkfLuBhu" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f0d7b14d-8feb-4574-96f3-21f02324b351" name="Default Changelist" comment="" />
+      <created>1614145042319</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614145042319</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
