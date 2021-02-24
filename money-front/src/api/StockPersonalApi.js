@@ -38,12 +38,12 @@ export async function createStockPersonal(personalData) {
 
 export async function updateStockPersonal(id, personalData) {
     const getUrl = Url + '/' + id;
-
+    console.log(personalData)
     try {
         const response = await axios.put(getUrl, {
             "ticker": personalData.ticker,
             "targetquantity": personalData.targetquantity,
-            "currentquantityweight": personalData.currentquantityweight
+            "currentquantityweight": personalData.currentquantity
         })
         return response.data;
 
@@ -56,6 +56,7 @@ export async function updateStockPersonal(id, personalData) {
 
 export async function deleteStockPersonal(id) {
     const getUrl = Url + '/' + id;
+    console.log(id);
     try {
         const response = await axios.delete(getUrl)
         return response.data;

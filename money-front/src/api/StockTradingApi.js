@@ -28,7 +28,7 @@ export async function createStockTrading(tradingData) {
             "stockquantity": tradingData.stockquantity,
             "year": tradingData.year,
             "month": tradingData.month,
-            "day": tradingData.dat,
+            "day": tradingData.day,
         });
        
         console.log(response)
@@ -43,14 +43,14 @@ export async function createStockTrading(tradingData) {
 
 export async function updateStockTrading(id, tradingData) {
     const getUrl = Url + '/' + id;
-
+    console.log(tradingData);
     try {
         const response = await axios.put(getUrl, {
             "price": tradingData.price,
             "stockquantity": tradingData.stockquantity,
             "year": tradingData.year,
             "month": tradingData.month,
-            "day": tradingData.dat,
+            "day": tradingData.day,
         })
         return response.data;
 
