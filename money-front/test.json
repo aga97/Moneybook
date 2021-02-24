@@ -1,0 +1,31 @@
+{
+  "date": {
+    "minyear": 2018,
+    "minmonth": 3,
+    "maxyear": 2020,
+    "maxmonth": 7
+  },
+  "moneybook": [
+    {
+      "id": 2,
+      "day": 13,
+      "context": "context",
+      "amount": 200,
+      "tag": "tag"
+    },
+    {
+      "id": 3,
+      "day": 14,
+      "context": "context",
+      "amount": 300,
+      "tag": "tag"
+    },
+    {
+      "id": 4,
+      "day": 15,
+      "context": "context",
+      "amount": 400,
+      "tag": "tag"
+    }
+  ]
+}
