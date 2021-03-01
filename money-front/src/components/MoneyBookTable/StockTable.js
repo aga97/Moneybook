@@ -21,6 +21,7 @@ import { getStockPersonal } from '../../api/StockPersonalApi';
 import { deletePersonal, getPersonal, updatePersonal } from '../../module/stockPersonalReducer';
 import { TextField } from '@material-ui/core';
 import { updateStockTrading } from '../../api/StockTradingApi';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 
 const useStyles = makeStyles((theme) =>({
   table: {
@@ -143,6 +144,7 @@ export default function StockTable() {
     dispatch(updateTrading(data.id, data));
     setTimeout(() => {
       dispatch(getStockByTicker(data.ticker));
+      dispatch(getPersonal()); 
     }, 1000); 
   }
 
@@ -219,15 +221,14 @@ export default function StockTable() {
               <TableCell onClick={() => handleClick(row)}>{row.targetquantity}</TableCell>
               <TableCell onClick={() => handleClick(row)}>{row.currentquantity}</TableCell>
               <TableCell padding="none" >
-                <Button color="primary" variant="contained" onClick={() => handleChangePersonalOpen(row)}>수정</Button>
-                <Button color="secondary" variant="contained" onClick={() => handlePersonalDelete(row.id)}>삭제</Button>
-                </TableCell>             
+                <IconButton onClick={() => handleChangePersonalOpen(row)}> <BorderColorIcon /> </IconButton>
+                <IconButton onClick={() => handlePersonalDelete(row.id)}> <CloseIcon /> </IconButton>
+              </TableCell>             
             </TableRow>                 
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-
       <Dialog onClose={handleClose} aria-labelledby="stock_modal" open={open}>
         <DialogTitle id="stock_modal" onClose={handleClose}>
           거래 내역

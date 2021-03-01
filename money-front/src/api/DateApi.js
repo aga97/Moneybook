@@ -3,7 +3,8 @@ import axios from 'axios';
 //getDate
 
 export const getDate = async() => {
-    const Url = '/api/v1/date';
+
+    const Url = 'http://localhost:8080/api/v1/date';
 
     try {
         const response = await axios.get(Url);

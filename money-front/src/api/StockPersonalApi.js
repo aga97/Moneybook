@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Url = '/api/v1/stock_personal';
+const Url = 'http://localhost:8080/v1/stock_personal';
 
 // get 
 export async function getStockPersonal() {

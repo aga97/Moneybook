@@ -3,7 +3,7 @@ import axios from 'axios';
 //sign
 // userA, 1111
 export async function signIn(username, password) {
-    const Url = '/api/v1/login';
+    const Url = 'http://localhost:8080//api/v1/login';
     console.log(username, password);
 
     try {
@@ -22,7 +22,7 @@ export async function signIn(username, password) {
 // sign up
 
 export async function signUp(username, password, email) {
-    const Url = '/api/v1/join';
+    const Url = 'http://localhost:8080/api/v1/join';
 
     try {
         const response = await axios.post(Url, {
@@ -42,7 +42,7 @@ export async function signUp(username, password, email) {
 //sign out 
 
 export const signOut = async() => {
-    const Url = '/logout';
+    const Url = 'http://localhost:8080//logout';
     try {
         const response = await axios.post(Url)
         console.log(response);

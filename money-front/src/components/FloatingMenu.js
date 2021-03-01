@@ -145,11 +145,13 @@ export default function FloatingActionButtons() {
       tag: tag
     })
     dispatch(createMoney(bookData));
+    setOpen(false);
   }
 
   const handleTagCreate = () => {
     console.log(tagData);
     dispatch(createTag(tagData));
+    setTagOpen(false);
     setTimeout(() => {
       dispatch(getTag()); 
     }, 1000); 

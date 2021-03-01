@@ -2,13 +2,24 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTag, getTag } from '../../module/tagReducer';
-import { ListItem } from '@material-ui/core';
+import { Button, IconButton, ListItem, ListItemSecondaryAction, ListItemText, TablePagination } from '@material-ui/core';
+import { getMoneyBookByTag } from '../../api/MoneyBookApi';
+import { getMoneyByTag } from '../../module/moneyReducer';
+import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   table: {
     minWidth: 0,
   },
-});
+  closeButton: {  
+    position: 'absolute',
+    right: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+  buttonSize: {
+    fontSize: '18px'
+  }   
+}));
 
 function createData(id, tag) {
   return {id, tag };
@@ -34,8 +45,12 @@ export default function TotalTable() {
     }      
   },[dispatch])
 
-  const handleClick = (id) => {
-    console.log(id)
+  const handleClick = (tag) => {
+    console.log(tag)
+    dispatch(getMoneyByTag(tag));
+  }
+
+  const handleDelete = (id) => {
     dispatch(deleteTag(id));
     setTimeout(() => {
       dispatch(getTag());
@@ -46,15 +61,18 @@ export default function TotalTable() {
     <div>
       {
         rows.map((row) => (
-          <ListItem button >
-            {row.tag}
+          <ListItem dense="true" button onClick={() => handleClick(row.tag)}>
+            <ListItemText  primary= {row.tag} />
           </ListItem>
         ))
       }
       {
         tags && tags.map((row) => (
-          <ListItem button onClick={() => handleClick(row.id)}>
-            {row.tag}
+          <ListItem dense="true" button onClick={() => handleClick(row.tag)} >      
+            <ListItemText  primary= {row.tag} />
+            <ListItemSecondaryAction>
+              <IconButton  size="small" edge="end" onClick={() => handleDelete(row.id)} > <CloseIcon className={classes.buttonSize} /> </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         ))
       }

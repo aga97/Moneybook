@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Url = '/api/v1/moneybook';
+const Url = 'hhttp://localhost:8080//api/v1/moneybook';
 
 // get 
 export async function getMoneyBook(year, month) {
@@ -70,10 +70,22 @@ export async function updateMoneyBook(id, bookData) {
 export async function deleteMoneyBook(id) {
     const getUrl = Url + '/' + id;
     try {
-        const response = await axios.delete(getUrl)
+        const response = await axios.delete(getUrl);
         return response.data;
     } catch (error) {
         return error;
     }
 
+}
+
+// get by tag
+
+export async function getMoneyBookByTag(tag) {
+    const getUrl = Url + '/' + tag;
+    try {
+        const response = await axios.get(getUrl);
+        return response.data;
+    } catch (error) {
+        return error
+    }
 }
