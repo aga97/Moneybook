@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class MemberApiController {
 
     private final MemberService memberService;

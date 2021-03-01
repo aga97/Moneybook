@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@CrossOrigin(origins = "*")
 @RestControllerAdvice
+@CrossOrigin(origins = "*")
 public class ControllerAdvice {
 
     @ExceptionHandler(DuplicatedMemberException.class)

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.*;
 
-@CrossOrigin(origins = "*")
+
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class CustomTagApiController {
 
     private final CustomTagService customTagService;
