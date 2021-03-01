@@ -10,7 +10,6 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class MemberApiController {
 
     private final MemberService memberService;

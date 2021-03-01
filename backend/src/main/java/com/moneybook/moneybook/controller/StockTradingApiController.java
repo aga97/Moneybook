@@ -13,7 +13,6 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class StockTradingApiController {
 
     private final StockTradingService stockTradingService;

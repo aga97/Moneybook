@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-@CrossOrigin(origins = "*")
 public class ControllerAdvice {
 
     @ExceptionHandler(DuplicatedMemberException.class)

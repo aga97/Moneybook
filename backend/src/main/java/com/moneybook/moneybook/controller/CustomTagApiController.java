@@ -15,7 +15,6 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class CustomTagApiController {
 
     private final CustomTagService customTagService;
