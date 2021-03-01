@@ -2,12 +2,16 @@ import axios from 'axios';
 
 //getDate
 
+const config = {
+    withCredentials: true,
+}
+
 export const getDate = async() => {
 
     const Url = 'http://localhost:8080/api/v1/date';
 
     try {
-        const response = await axios.get(Url);
+        const response = await axios.get(Url, config);
         
         const datelist = response.data;
         console.log(datelist);

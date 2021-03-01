@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+const config = {
+    withCredentials: true,
+}
+
 const Url = 'http://localhost:8080/api/v1/stock_trading';
 
 // get 
@@ -8,7 +12,7 @@ export async function getStockTrading(year, month) {
     const getUrl = Url + '/' + year + '/' + month;
 
     try {
-        const response = await axios.get(getUrl);
+        const response = await axios.get(getUrl, config);
         console.log(response)
         return response.data;
 
@@ -29,7 +33,7 @@ export async function createStockTrading(tradingData) {
             "year": tradingData.year,
             "month": tradingData.month,
             "day": tradingData.day,
-        });
+        }, config);
        
         console.log(response)
         return response.data;
@@ -51,7 +55,7 @@ export async function updateStockTrading(id, tradingData) {
             "year": tradingData.year,
             "month": tradingData.month,
             "day": tradingData.day,
-        })
+        }, config)
         return response.data;
 
     } catch (error) {

@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
       if(sessionStorage.getItem('username') === null) {
         //window.history.replaceState({data: null}, 'push to login', '/');
         //window.location.reload();
-        window.location.href = '/'
+        //window.location.href = '/'
       }
     },[username])    
 

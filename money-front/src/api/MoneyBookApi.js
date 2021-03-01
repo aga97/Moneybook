@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const Url = 'hhttp://localhost:8080//api/v1/moneybook';
+const config = {
+    withCredentials: true,
+}
+
+const Url = 'hhttp://localhost:8080/api/v1/moneybook';
 
 // get 
 export async function getMoneyBook(year, month) {
@@ -8,7 +12,7 @@ export async function getMoneyBook(year, month) {
     const getUrl = Url + '/' + year + '/' + month;
     //const getUrl = Url;
     try {
-        const response = await axios.get(getUrl);
+        const response = await axios.get(getUrl, config);
         const moneybook = response.data;
 
         console.log(response)
@@ -30,7 +34,7 @@ export async function createMoneyBook(bookData) {
             "context": bookData.context,
             "amount": bookData.amount,
             "tag": bookData.tag
-        })
+        }, config)
 
         console.log(response)
 
@@ -54,7 +58,7 @@ export async function updateMoneyBook(id, bookData) {
             "context": bookData.context,
             "amount": bookData.amount,
             "tag": bookData.tag
-        })
+        }, config)
         return response.data;
 
     } catch (error) {
@@ -70,7 +74,7 @@ export async function updateMoneyBook(id, bookData) {
 export async function deleteMoneyBook(id) {
     const getUrl = Url + '/' + id;
     try {
-        const response = await axios.delete(getUrl);
+        const response = await axios.delete(getUrl, config);
         return response.data;
     } catch (error) {
         return error;
