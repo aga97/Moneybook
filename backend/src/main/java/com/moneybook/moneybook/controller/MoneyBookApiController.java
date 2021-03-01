@@ -13,7 +13,6 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(originPatterns = "*")
 public class MoneyBookApiController {
 
     private final MoneyBookService moneyBookService;
