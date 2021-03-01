@@ -16,6 +16,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(originPatterns = "*")
 public class StockPersonalApiController {
 
     private final StockPersonalService stockPersonalService;
