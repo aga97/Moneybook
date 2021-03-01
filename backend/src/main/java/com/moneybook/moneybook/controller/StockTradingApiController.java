@@ -1,6 +1,5 @@
 package com.moneybook.moneybook.controller;
 
-import com.moneybook.moneybook.dto.requestdto.DateDto;
 import com.moneybook.moneybook.dto.requestdto.StockTradingDto;
 import com.moneybook.moneybook.dto.requestdto.StockTradingUpdateDto;
 import com.moneybook.moneybook.dto.stocktrading.*;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.*;
 
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RestController
 public class StockTradingApiController {
