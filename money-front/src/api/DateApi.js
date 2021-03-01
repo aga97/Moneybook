@@ -8,7 +8,7 @@ const config = {
 
 export const getDate = async() => {
 
-    const Url = 'http://localhost:8080/api/v1/date';
+    const Url = 'http://mbpj.duckdns.org:8080/api/v1/date';
 
     try {
         const response = await axios.get(Url, config);

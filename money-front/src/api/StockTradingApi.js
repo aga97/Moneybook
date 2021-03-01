@@ -4,7 +4,7 @@ const config = {
     withCredentials: true,
 }
 
-const Url = 'http://localhost:8080/api/v1/stock_trading';
+const Url = 'http://mbpj.duckdns.org:8080/api/v1/stock_trading';
 
 // get 
 export async function getStockTrading(year, month) {
@@ -68,7 +68,7 @@ export async function updateStockTrading(id, tradingData) {
 export async function deleteStockTrading(id) {
     const getUrl = Url + '/' + id;
     try {
-        const response = await axios.delete(getUrl)
+        const response = await axios.delete(getUrl, config)
         return response.data;
     } catch (error) {
         return error;
@@ -80,7 +80,7 @@ export async function deleteStockTrading(id) {
 export async function getStockByTicker(ticker) {
     const getUrl = Url + '/' + ticker;
     try {
-        const response = await axios.get(getUrl)
+        const response = await axios.get(getUrl ,config)
         return response.data;
     } catch (error) {
         return error;

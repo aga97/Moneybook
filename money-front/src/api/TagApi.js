@@ -4,7 +4,7 @@ const config = {
     withCredentials: true,
 }
 
-const Url = 'http://localhost:8080/api/v1/custom_tag';
+const Url = 'http://mbpj.duckdns.org:8080/api/v1/custom_tag';
 
 // get 
 

@@ -4,7 +4,7 @@ const config = {
     withCredentials: true,
 }
 
-const Url = 'hhttp://localhost:8080/api/v1/moneybook';
+const Url = 'http://mbpj.duckdns.org:8080/api/v1/moneybook';
 
 // get 
 export async function getMoneyBook(year, month) {
@@ -87,7 +87,7 @@ export async function deleteMoneyBook(id) {
 export async function getMoneyBookByTag(tag) {
     const getUrl = Url + '/' + tag;
     try {
-        const response = await axios.get(getUrl);
+        const response = await axios.get(getUrl, config);
         return response.data;
     } catch (error) {
         return error
