@@ -4,7 +4,7 @@ const config = {
     withCredentials: true,
 }
 
-const Url = 'hhttp://localhost:8080/api/v1/moneybook';
+const Url = 'http://localhost:8080/api/v1/moneybook';
 
 // get 
 export async function getMoneyBook(year, month) {

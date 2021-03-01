@@ -4,7 +4,7 @@ const config = {
     withCredentials: true,
 }
 
-const Url = 'http://localhost:8080/v1/stock_personal';
+const Url = 'http://localhost:8080/api/v1/stock_personal';
 
 // get 
 export async function getStockPersonal() {
