@@ -9,6 +9,7 @@ const CREATE_TRADING = 'CREATE_TRADING';
 const UPDATE_TRADING = 'UPDATE_TRADING';
 const DELETE_TRADING = 'DELETE_TRADING';
 const GET_STOCK_BY_TICKER = 'GET_STOCK_BY_TICKER';
+const INITIALIZE = 'INITAILIZE';
 
 // Action Creator
 export const getTrading = createAction(GET_TRADING, (year, month) => ({payload: {year, month}}));
@@ -17,6 +18,7 @@ export const updateTrading = createAction(UPDATE_TRADING, (id, bookData) => ({pa
 export const deleteTrading = createAction(DELETE_TRADING, (id) => ({payload: {id}}));
 export const createTrading = createAction(CREATE_TRADING, (bookData) => ({payload: {bookData}}));
 export const getStockByTicker = createAction(GET_STOCK_BY_TICKER, (ticker) => ({payload: {ticker}}));
+export const initialize = createAction(INITIALIZE);
 
 // Main Saga
 export function* tradingSaga() {
@@ -55,8 +57,9 @@ function* deleteTradingSaga({payload}) {
 
 // stock by ticker
 function* stockByTickerSaga({payload}) {
+    yield put(initialize());
     const response = yield call(API.getStockByTicker, payload.ticker);
-    yield put(getTradingAcync(response))
+    yield put(getTradingAcync(response));
     console.log(response);
 }
 
@@ -75,5 +78,7 @@ export default createReducer(initialState, {
     [GET_TRADING_ACYNC]: (state, {payload: data}) => {   
         state.tradingdata = data;
     },
-    
+    [INITIALIZE]: (state, {payload}) => {
+        state.tradingdata = [];
+    }
 })

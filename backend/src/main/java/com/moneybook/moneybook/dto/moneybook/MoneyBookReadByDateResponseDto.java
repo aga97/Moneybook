@@ -11,7 +11,7 @@ import java.util.*;
 
 @Data
 @NoArgsConstructor
-public class MoneyBookReadResponseDto {
+public class MoneyBookReadByDateResponseDto {
 
     private Long id;
     private String context;
@@ -20,7 +20,7 @@ public class MoneyBookReadResponseDto {
     private Integer day;
 
     @QueryProjection
-    public MoneyBookReadResponseDto(Long id, String context, Long amount, String tag, Integer day) {
+    public MoneyBookReadByDateResponseDto(Long id, String context, Long amount, String tag, Integer day) {
         this.id = id;
         this.context = context;
         this.amount = amount;
@@ -28,7 +28,7 @@ public class MoneyBookReadResponseDto {
         this.day = day;
     }
 
-    public MoneyBookReadResponseDto(MoneyBook entity) {
+    public MoneyBookReadByDateResponseDto(MoneyBook entity) {
         this.id = entity.getId();
         this.context = entity.getContext();
         this.amount = entity.getAmount();

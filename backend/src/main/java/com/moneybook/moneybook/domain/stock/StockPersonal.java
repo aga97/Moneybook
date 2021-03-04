@@ -2,6 +2,7 @@ package com.moneybook.moneybook.domain.stock;
 
 import com.moneybook.moneybook.domain.BaseTimeEntity;
 import com.moneybook.moneybook.domain.member.Member;
+import com.moneybook.moneybook.exceptions.InvalidStockQuantityException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class StockPersonal extends BaseTimeEntity {
 
         if(Quantity < 0){
             if(this.currentQuantity + Quantity < 0)
-                throw new IllegalArgumentException("can not sell that much");
+                throw new InvalidStockQuantityException("can not sell that much");
         }
 
         this.currentQuantity += Quantity;

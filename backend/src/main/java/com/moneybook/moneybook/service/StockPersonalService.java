@@ -109,7 +109,7 @@ public class StockPersonalService {
 
     @Transactional
     public void deleteStockPersonal(Long id){
-        stockPersonalRepository.deleteById(id);
+        stockPersonalRepository.delById(id);
     }
 
 }

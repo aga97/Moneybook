@@ -25,4 +25,12 @@ public class CustomTagQueryRepositoryImpl implements CustomTagQueryRepository{
                 .where(customTag.member.username.eq(username))
                 .fetch();
     }
+
+    @Override
+    public void delById(Long id){
+        queryFactory
+                .delete(customTag)
+                .where(customTag.id.eq(id))
+                .execute();
+    }
 }

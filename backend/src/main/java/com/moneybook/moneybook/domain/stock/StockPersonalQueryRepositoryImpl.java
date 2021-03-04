@@ -51,4 +51,12 @@ public class StockPersonalQueryRepositoryImpl implements StockPersonalQueryRepos
                 )
                 .fetch();
     }
+
+    @Override
+    public void delById(Long id){
+        queryFactory
+                .delete(stockPersonal)
+                .where(stockPersonal.id.eq(id))
+                .execute();
+    }
 }

@@ -6,9 +6,6 @@ import com.moneybook.moneybook.dto.requestdto.MoneyBookUpdateDto;
 import com.moneybook.moneybook.security.token.AjaxAuthenticationToken;
 import com.moneybook.moneybook.service.MoneyBookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -29,14 +26,24 @@ public class MoneyBookApiController {
     }
 
     @GetMapping("/api/v1/moneybook/{year}/{month}")
-    public List<MoneyBookReadResponseDto> findByUsername(@PathVariable Integer year, @PathVariable Integer month, Principal principal) {
-        MoneyBookReadRequestDto dto = MoneyBookReadRequestDto.builder()
+    public List<MoneyBookReadByDateResponseDto> findByUsername(@PathVariable Integer year, @PathVariable Integer month, Principal principal) {
+        MoneyBookReadByDateRequestDto dto = MoneyBookReadByDateRequestDto.builder()
                 .username(((AjaxAuthenticationToken) principal).getUsername())
                 .year(year)
                 .month(month)
                 .build();
 
         return moneyBookService.findAll(dto);
+    }
+
+    @GetMapping("/api/v1/moneybook/{tag}")
+    public List<MoneyBookReadByTagResponseDto> findByTag(@PathVariable String tag, Principal principal) {
+        MoneyBookReadByTagRequestDto dto = MoneyBookReadByTagRequestDto.builder()
+                .username(((AjaxAuthenticationToken) principal).getUsername())
+                .tag(tag)
+                .build();
+
+        return moneyBookService.findByTag(dto);
     }
 
     @PostMapping("/api/v1/moneybook")

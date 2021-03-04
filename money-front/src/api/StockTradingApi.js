@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const Url = '/api/v1/stock_trading';
+const config = {
+    withCredentials: true,
+}
+
+const Url = 'http://mbpj.duckdns.org:8080/api/v1/stock_trading';
 
 // get 
 export async function getStockTrading(year, month) {
@@ -8,7 +12,7 @@ export async function getStockTrading(year, month) {
     const getUrl = Url + '/' + year + '/' + month;
 
     try {
-        const response = await axios.get(getUrl);
+        const response = await axios.get(getUrl, config);
         console.log(response)
         return response.data;
 
@@ -28,8 +32,8 @@ export async function createStockTrading(tradingData) {
             "stockquantity": tradingData.stockquantity,
             "year": tradingData.year,
             "month": tradingData.month,
-            "day": tradingData.dat,
-        });
+            "day": tradingData.day,
+        }, config);
        
         console.log(response)
         return response.data;
@@ -43,15 +47,15 @@ export async function createStockTrading(tradingData) {
 
 export async function updateStockTrading(id, tradingData) {
     const getUrl = Url + '/' + id;
-
+    console.log(tradingData);
     try {
         const response = await axios.put(getUrl, {
             "price": tradingData.price,
             "stockquantity": tradingData.stockquantity,
             "year": tradingData.year,
             "month": tradingData.month,
-            "day": tradingData.dat,
-        })
+            "day": tradingData.day,
+        }, config)
         return response.data;
 
     } catch (error) {
@@ -64,7 +68,7 @@ export async function updateStockTrading(id, tradingData) {
 export async function deleteStockTrading(id) {
     const getUrl = Url + '/' + id;
     try {
-        const response = await axios.delete(getUrl)
+        const response = await axios.delete(getUrl, config)
         return response.data;
     } catch (error) {
         return error;
@@ -76,7 +80,7 @@ export async function deleteStockTrading(id) {
 export async function getStockByTicker(ticker) {
     const getUrl = Url + '/' + ticker;
     try {
-        const response = await axios.get(getUrl)
+        const response = await axios.get(getUrl ,config)
         return response.data;
     } catch (error) {
         return error;

@@ -3,6 +3,7 @@ package com.moneybook.moneybook.controller;
 import com.moneybook.moneybook.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -71,5 +72,12 @@ public class ControllerAdvice {
         ExceptionResponseBody responseBody =
                 new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.SERVICE_UNAVAILABLE, "yahoo finance io exception");
         return new ResponseEntity<>(responseBody, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(InvalidStockQuantityException.class)
+    public ResponseEntity<ExceptionResponseBody> invalidStockQuantity() {
+        ExceptionResponseBody responseBody =
+                new ExceptionResponseBody(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "invalid stock quantity");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 }

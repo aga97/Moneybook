@@ -39,14 +39,14 @@ public class MoneyBookService {
     }
 
     @Transactional(readOnly = true)
-    public List<MoneyBookReadResponseDto> findAll(MoneyBookReadRequestDto requestDto){
+    public List<MoneyBookReadByDateResponseDto> findAll(MoneyBookReadByDateRequestDto requestDto){
 
         List<MoneyBook> moneyBooks = moneyBookRepository.findByUsernameAndDate(requestDto.getUsername(), requestDto.getYear(), requestDto.getMonth());
 
-        List<MoneyBookReadResponseDto> responseDto = new ArrayList<>();
+        List<MoneyBookReadByDateResponseDto> responseDto = new ArrayList<>();
 
         for (MoneyBook moneyBook : moneyBooks) {
-            responseDto.add(new MoneyBookReadResponseDto(moneyBook));
+            responseDto.add(new MoneyBookReadByDateResponseDto(moneyBook));
         }
 
         return responseDto;
@@ -68,6 +68,27 @@ public class MoneyBookService {
                 .maxYear(minMaxDate.get(1).getYear())
                 .maxMonth(minMaxDate.get(1).getMonthValue())
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MoneyBookReadByTagResponseDto> findByTag(MoneyBookReadByTagRequestDto requestDto) {
+
+        List<MoneyBook> moneyBooks = moneyBookRepository.findByUsernameAndTag(requestDto.getUsername(), requestDto.getTag());
+
+        List<MoneyBookReadByTagResponseDto> responseDto = new ArrayList<>();
+        for (MoneyBook moneyBook : moneyBooks) {
+            responseDto.add(MoneyBookReadByTagResponseDto.builder()
+                    .id(moneyBook.getId())
+                    .context(moneyBook.getContext())
+                    .amount(moneyBook.getAmount())
+                    .tag(moneyBook.getTag())
+                    .year(moneyBook.getDate().getYear())
+                    .month(moneyBook.getDate().getMonthValue())
+                    .day(moneyBook.getDate().getDayOfMonth())
+                    .build());
+        }
+
+        return responseDto;
     }
 
     @Transactional

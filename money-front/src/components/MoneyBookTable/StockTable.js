@@ -16,11 +16,12 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTrading, getStockByTicker, updateTrading } from '../../module/stockTradingReducer';
+import { createTrading, deleteTrading, getStockByTicker, updateTrading } from '../../module/stockTradingReducer';
 import { getStockPersonal } from '../../api/StockPersonalApi';
-import { deletePersonal, getPersonal } from '../../module/stockPersonalReducer';
+import { deletePersonal, getPersonal, updatePersonal } from '../../module/stockPersonalReducer';
 import { TextField } from '@material-ui/core';
 import { updateStockTrading } from '../../api/StockTradingApi';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 
 const useStyles = makeStyles((theme) =>({
   table: {
@@ -81,11 +82,13 @@ export default function StockTable() {
   const [changeOpen, setChangeOpen] = React.useState(false);
   const [data, setData] = React.useState({});
   const [startDate, setStartDate] = React.useState(new Date());
+  const [day, setDat] = React.useState(startDate.getDate());
   const [year, setYear] = React.useState(startDate.getFullYear());
   const [month, setMonth] = React.useState(startDate.getMonth() + 1);
-  const [stockPersonalId, setStockPersonalId] = React.useState(null);
   const [stockPersonalData, setStockPersonalData] = React.useState({});
-  
+  const [changePersonalOpen, setChangePersonalOpen] = React.useState(false);
+  const [changeTradingOpen, setChangeTradingOpen] = React.useState(false);
+  const [stockTradingData, setStockTradingData] = React.useState({});
 
   const { time } = useSelector(state => state.dateReducer);
   const { tradingdata } = useSelector(state => state.stockTradingReducer);
@@ -100,8 +103,11 @@ export default function StockTable() {
   },[dispatch])
 
   const handleClick = (row) => {
-    setOpen(true);
-    setStockPersonalId(row.id);
+    setOpen(true);    
+    setData({
+      ...data,
+      ticker: row.ticker
+    })
     try {
       dispatch(getStockByTicker(row.ticker));
     } catch (error) {
@@ -136,17 +142,62 @@ export default function StockTable() {
 
   const handleUpdate = () => {
     dispatch(updateTrading(data.id, data));
+    setTimeout(() => {
+      dispatch(getStockByTicker(data.ticker));
+      dispatch(getPersonal()); 
+    }, 1000); 
   }
 
-  const handlePersonalDelete = () => {
-    dispatch(deletePersonal(stockPersonalId));
+  const handleChangePersonalOpen = (data) => {
+    setStockPersonalData({
+      id: data.id,
+      ticker: data.ticker,
+      targetquantity: data.targetquantity,
+      currentquantity: 0
+    });
+    setChangePersonalOpen(true);
+  }
+
+  const handleChangePersonalClose = () => {
+    setChangePersonalOpen(false);
+  }
+
+  const handlePersonalDelete = (id) => {
+    dispatch(deletePersonal(id));
     setTimeout(() => {
       dispatch(getPersonal()); 
     }, 1000); 
   }
 
   const handleUpdatePersonal = () => {
+    dispatch(updatePersonal(stockPersonalData.id, stockPersonalData));
+    setTimeout(() => {
+      dispatch(getPersonal()); 
+    }, 1000); 
+  }
 
+  const handleChangeTradingOpen = () => {
+    setData({
+      ...data,
+      day: day,
+      price: 0,
+      year: year,
+      month: month,
+      stockquantity: 0
+    });
+    setChangeTradingOpen(true);
+  }
+
+  const handleChangeTradingClose = () => {
+    setChangeTradingOpen(false);
+  }
+
+  const handleCreateTrading = () => {
+    dispatch(createTrading(data));
+    setTimeout(() => {
+      dispatch(getStockByTicker(data.ticker));
+    }, 1000); 
+    
   }
 
   return (
@@ -170,15 +221,15 @@ export default function StockTable() {
               <TableCell onClick={() => handleClick(row)}>{row.targetquantity}</TableCell>
               <TableCell onClick={() => handleClick(row)}>{row.currentquantity}</TableCell>
               <TableCell padding="none" >
-                <Button color="primary" variant="contained">수정</Button>
-                <Button color="secondary" variant="contained" onClick={(e) => handlePersonalDelete(e)}>삭제</Button>
-                </TableCell>             
+                <IconButton onClick={() => handleChangePersonalOpen(row)}> <BorderColorIcon /> </IconButton>
+                <IconButton onClick={() => handlePersonalDelete(row.id)}> <CloseIcon /> </IconButton>
+              </TableCell>             
             </TableRow>                 
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <Dialog onClose={handleClose} aria-labelledby="stock_modal" open={open}>
+      <Dialog onClose={handleClose} aria-labelledby="stock_modal" open={open}>
         <DialogTitle id="stock_modal" onClose={handleClose}>
           거래 내역
         </DialogTitle>
@@ -207,20 +258,14 @@ export default function StockTable() {
           </TableContainer>        
         </DialogContent>
         <DialogActions>    
-          <Button color="primary">
+          <Button color="primary" onClick={handleChangeTradingOpen}>
             거래 내역 생성
-          </Button> 
-          <Button color="primary">
-            관심주 수정
-          </Button> 
-          <Button onClick={() => handlePersonalDelete()} color="secondary">
-            관심주 삭제
-          </Button>      
+          </Button>  
         </DialogActions>
       </Dialog>
 
       <Dialog onClose={handleChageClose} open={changeOpen} >
-      <DialogTitle id="stock_modal" onClose={handleChageClose}>
+        <DialogTitle id="stock_modal" onClose={handleChageClose}>
            내역 수정
         </DialogTitle>
         <DialogContent dividers>
@@ -242,6 +287,46 @@ export default function StockTable() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog onClose={handleChangePersonalClose} open={changePersonalOpen}>
+        <DialogTitle id="stock_personal_modal" onClose={handleChangePersonalClose}>
+           관심주 수정
+        </DialogTitle>
+        <DialogContent dividers>
+          <form className={classes.textfield} noValidate autoComplete="off">
+              <TextField id="ticker" label="티커" defaultValue={stockPersonalData.ticker} variant="filled" onChange={(e) => {setStockPersonalData({...stockPersonalData, ticker: e.target.value})}} />
+              <TextField id="targetquantity" label="목표 수량" defaultValue={stockPersonalData.targetquantity} variant="filled" type="number" onChange={(e) => {setStockPersonalData({...stockPersonalData, targetquantity: e.target.value})}} />
+              <TextField id="currentquantity" label="보유 수량(가중치)" defaultValue="0" variant="filled" type="number" onChange={(e) => {setStockPersonalData({...stockPersonalData, currentquantity: e.target.value})}} />              
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={() => handleUpdatePersonal()}>
+            수정
+          </Button>
+        </DialogActions>   
+      </Dialog>
+
+      <Dialog onClose={handleChangeTradingClose} open={changeTradingOpen}>
+        <DialogTitle id="stock_personal_modal" onClose={handleChangeTradingClose}>
+          거래 내역 생성
+        </DialogTitle>
+        <DialogContent dividers>
+          <form className={classes.textfield} noValidate autoComplete="off">
+            <TextField id="year" label="년도" defaultValue={year} variant="filled" type="number" onChange={(e) => {setData({...data, year: e.target.value})}} />
+            <TextField id="month" label="월" defaultValue={month} variant="filled" type="number" onChange={(e) => {setData({...data, month: e.target.value})}} />
+            <TextField id="date" label="날짜" defaultValue={day} variant="filled" type="number" onChange={(e) => {setData({...data, day: e.target.value})}} />
+            <TextField id="ticker" label="티커" defaultValue={data.ticker} variant="filled" onChange={(e) => {setData({...data, ticker: e.target.value})}} />
+            <TextField id="price" label="금액" defaultValue={0} variant="filled" type="number" onChange={(e) => {setData({...data, price: e.target.value})}} />
+            <TextField id="stockweight" label="수량" defaultValue={0} variant="filled" onChange={(e) => {setData({...data, stockquantity: e.target.value})}} />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={() => handleCreateTrading()}>
+            생성
+          </Button>
+        </DialogActions>   
+      </Dialog>
+
     </div>
   );
 }

@@ -1,13 +1,17 @@
 import axios from 'axios';
 
-const Url = '/api/v1/custom_tag';
+const config = {
+    withCredentials: true,
+}
+
+const Url = 'http://mbpj.duckdns.org:8080/api/v1/custom_tag';
 
 // get 
 
 export async function getTag() {
 
     try {
-        const response = await axios.get(Url);
+        const response = await axios.get(Url,config);
         console.log(response)
         return response.data;
 
@@ -23,7 +27,7 @@ export async function createTag(tag) {
     try {
         const response = await axios.post(Url,{
             "tag": tag
-        });
+        }, config);
        
         console.log(response)
         return response.data;
@@ -38,7 +42,7 @@ export async function createTag(tag) {
 export async function deleteTag(id) {
     const getUrl = Url + '/' + id;
     try {
-        const response = await axios.delete(getUrl);
+        const response = await axios.delete(getUrl, config);
         return response.data;
     } catch (error) {
         return error;

@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface CustomTagQueryRepository {
     List<CustomTag> findByUsername(String username);
+    void delById(Long id);
 }
