@@ -5,7 +5,6 @@
  
 <img src="/images/login.png">
 
- 현재 id : UserA 와 ps : 1111 으로 로그인.
 ## Main
  로그인 후 메인화면
  
@@ -32,3 +31,10 @@
  클릭하면 상세 정보를 띄워주고, 수정, 삭제 가능.
  
 <img src="/images/stock2.png">
+
+ ## Demo
+  
+  Link: [Demo][DemoLink]
+  
+  [MemoLink]: http://mbpj.duckdns.org
+ 
