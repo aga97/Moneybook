@@ -34,7 +34,9 @@
 
  ## Demo
   
-  Link: [Demo][DemoLink]
+  차후 회원가입, 로그아웃, 업데이트 예정
+  
+  Link: [DemoPage][DemoLink]
   
   [DemoLink]: http://mbpj.duckdns.org
  
