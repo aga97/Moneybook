@@ -6,15 +6,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MoneyBookReadRequestDto {
+public class MoneyBookReadByTagRequestDto {
+
     private String username;
-    private Integer year;
-    private Integer month;
+    private String tag;
 
     @Builder
-    public MoneyBookReadRequestDto(String username, Integer year, Integer month) {
+    public MoneyBookReadByTagRequestDto(String username, String tag) {
         this.username = username;
-        this.year = year;
-        this.month = month;
+        this.tag = tag;
     }
 }

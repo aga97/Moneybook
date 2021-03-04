@@ -61,14 +61,14 @@ class MoneyBookServiceTest {
                 .day(1)
                 .build();
 
-        MoneyBookReadRequestDto readRequestDto = MoneyBookReadRequestDto.builder()
+        MoneyBookReadByDateRequestDto readRequestDto = MoneyBookReadByDateRequestDto.builder()
                 .username(username)
                 .year(2021)
                 .month(1)
                 .build();
         //when
         Long savedId = moneyBookService.save(saveRequestDto);
-        List<MoneyBookReadResponseDto> all = moneyBookService.findAll(readRequestDto);
+        List<MoneyBookReadByDateResponseDto> all = moneyBookService.findAll(readRequestDto);
 
         //then
         assertThat(all.size()).isEqualTo(1);

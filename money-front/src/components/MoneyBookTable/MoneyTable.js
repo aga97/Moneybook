@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Dialog, TextField } from '@material-ui/core';
-import { deleteMoney, getMoney, updateMoney } from '../../module/moneyReducer';
+import { deleteMoney, getMoney, getMoneyByTag, updateMoney } from '../../module/moneyReducer';
 
 // 스타일 정의
 
@@ -127,17 +127,30 @@ export default function MoneyTable() {
   const handleDelete = (id) => {
     setSnack(true);
     dispatch(deleteMoney(id));
-    setInterval(() => {
-      dispatch(getMoney(time.year, time.month))
-    }, 1000);
+    if(time.year) {
+      setTimeout(() => {
+        dispatch(getMoney(time.year, time.month))
+      }, 1000); 
+    } else {
+      setTimeout(() => {
+        dispatch(getMoneyByTag(moneydate[0].tag))
+      }, 1000); 
+    }
+    
   }
 
   const handleUpdate = (id) => {
     setSnack(true);
     dispatch(updateMoney(id, data));
-    setInterval(() => {
-      dispatch(getMoney(time.year, time.month))
-    }, 1000);
+    if(time.year) {
+      setTimeout(() => {
+        dispatch(getMoney(time.year, time.month))
+      }, 1000); 
+    } else {
+      setTimeout(() => {
+        dispatch(getMoneyByTag(moneydate[0].tag))
+      }, 1000); 
+    }
   }
 
   const handleSnackClose = () => {

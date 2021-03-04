@@ -1,10 +1,9 @@
 package com.moneybook.moneybook.domain.moneybook;
 
-import com.moneybook.moneybook.domain.member.QMember;
 import com.moneybook.moneybook.domain.stock.LastDateProvider;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadRequestDto;
-import com.moneybook.moneybook.dto.moneybook.MoneyBookReadResponseDto;
-import com.moneybook.moneybook.dto.moneybook.QMoneyBookReadResponseDto;
+import com.moneybook.moneybook.dto.moneybook.MoneyBookReadByDateRequestDto;
+import com.moneybook.moneybook.dto.moneybook.MoneyBookReadByDateResponseDto;
+import com.moneybook.moneybook.dto.moneybook.QMoneyBookReadByDateResponseDto;
 import com.moneybook.moneybook.exceptions.InvalidDateException;
 import com.moneybook.moneybook.exceptions.InvalidUsernameException;
 import com.querydsl.core.Tuple;
@@ -29,9 +28,9 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
     }
 
     @Override
-    public List<MoneyBookReadResponseDto> findByUsernameAndDate(MoneyBookReadRequestDto condition) {
+    public List<MoneyBookReadByDateResponseDto> findByUsernameAndDate(MoneyBookReadByDateRequestDto condition) {
         return queryFactory
-                .select(new QMoneyBookReadResponseDto(
+                .select(new QMoneyBookReadByDateResponseDto(
                         moneyBook.id,
                         moneyBook.context,
                         moneyBook.amount,
@@ -96,5 +95,15 @@ public class MoneyBookQueryRepositoryImpl implements MoneyBookQueryRepository{
         LocalDateTime lastDate = LastDateProvider.lastDate(year, month);
 
         return moneyBook.date.between(firstDate, lastDate);
+    }
+
+    public List<MoneyBook> findByUsernameAndTag(String username, String tag) {
+        return queryFactory
+                .selectFrom(moneyBook)
+                .where(
+                        moneyBook.member.username.eq(username),
+                        moneyBook.tag.eq(tag)
+                )
+                .fetch();
     }
 }

@@ -1,16 +1,20 @@
 import axios from 'axios';
 
+const config = {
+    withCredentials: true,
+}
+
 //sign
 // userA, 1111
 export async function signIn(username, password) {
-    const Url = '/api/v1/login';
+    const Url = 'http://mbpj.duckdns.org:8080/api/v1/login';
     console.log(username, password);
 
     try {
         const response = await axios.post(Url, {
             "username": username,
             "password": password
-        });
+        }, config);
         console.log(response);
         return response.data;
 
@@ -22,14 +26,14 @@ export async function signIn(username, password) {
 // sign up
 
 export async function signUp(username, password, email) {
-    const Url = '/api/v1/join';
+    const Url = 'http://mbpj.duckdns.org:8080/api/v1/join';
 
     try {
         const response = await axios.post(Url, {
             "username": "userA",
             "password": 1111,
             "email": "email@email.com"
-        });
+        }, config);
         console.log(response);
         return response;
 
@@ -42,9 +46,9 @@ export async function signUp(username, password, email) {
 //sign out 
 
 export const signOut = async() => {
-    const Url = '/logout';
+    const Url = 'http://mbpj.duckdns.org:8080/logout';
     try {
-        const response = await axios.post(Url)
+        const response = await axios.post(Url, null ,config)
         console.log(response);
         return response;
 
