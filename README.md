@@ -36,5 +36,5 @@
   
   Link: [Demo][DemoLink]
   
-  [MemoLink]: http://mbpj.duckdns.org
+  [DemoLink]: http://mbpj.duckdns.org
  
