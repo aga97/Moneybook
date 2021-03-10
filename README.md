@@ -36,6 +36,10 @@
   
   차후 회원가입, 로그아웃, 주식기능 업데이트 예정.
   
+  ID: UserA
+  PW: 1111
+  으로 로그인 가능
+  
   Link: [DemoPage][DemoLink]
   
   [DemoLink]: http://mbpj.duckdns.org
