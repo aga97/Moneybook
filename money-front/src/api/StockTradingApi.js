@@ -1,46 +1,62 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const config = {
     withCredentials: true,
 }
 
-const Url = 'http://mbpj.duckdns.org:8080/api/v1/stock_trading';
+const Url = process.env.REACT_APP_SERVER_URL + '/api/v1/stock_trading';
 
 // get 
 export async function getStockTrading(year, month) {
    
     const getUrl = Url + '/' + year + '/' + month;
-
-    try {
-        const response = await axios.get(getUrl, config);
-        console.log(response)
-        return response.data;
-
-    } catch (error) {
-        return error;
-    }
+    
+    const response = await axios.get(getUrl, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    console.log(response)
+    return response.data;
 }
 
 // create Api
 
 export async function createStockTrading(tradingData) {
 
-    try {
-        const response = await axios.post(Url,{
-            "ticker": tradingData.ticker,
-            "price": tradingData.price,
-            "stockquantity": tradingData.stockquantity,
-            "year": tradingData.year,
-            "month": tradingData.month,
-            "day": tradingData.day,
-        }, config);
-       
-        console.log(response)
-        return response.data;
+  
+    const response = await axios.post(Url,{
+        "ticker": tradingData.ticker,
+        "price": tradingData.price,
+        "stockquantity": tradingData.stockquantity,
+        "year": tradingData.year,
+        "month": tradingData.month,
+        "day": tradingData.day,
+    }, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    
+    console.log(response)
+    return response.data;
 
-    } catch (error) {
-        return error;
-    }
 }
 
 // update Api
@@ -48,42 +64,67 @@ export async function createStockTrading(tradingData) {
 export async function updateStockTrading(id, tradingData) {
     const getUrl = Url + '/' + id;
     console.log(tradingData);
-    try {
-        const response = await axios.put(getUrl, {
-            "price": tradingData.price,
-            "stockquantity": tradingData.stockquantity,
-            "year": tradingData.year,
-            "month": tradingData.month,
-            "day": tradingData.day,
-        }, config)
-        return response.data;
+  
+    const response = await axios.put(getUrl, {
+        "price": tradingData.price,
+        "stockquantity": tradingData.stockquantity,
+        "year": tradingData.year,
+        "month": tradingData.month,
+        "day": tradingData.day,
+    }, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    return response.data;
 
-    } catch (error) {
-        return error;
-    }
 }
 
 // delete Api 
 
 export async function deleteStockTrading(id) {
     const getUrl = Url + '/' + id;
-    try {
-        const response = await axios.delete(getUrl, config)
-        return response.data;
-    } catch (error) {
-        return error;
-    }
+    
+    const response = await axios.delete(getUrl, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    return response.data;   
 }
 
 // get stock by ticker
 
 export async function getStockByTicker(ticker) {
     const getUrl = Url + '/' + ticker;
-    try {
-        const response = await axios.get(getUrl ,config)
-        return response.data;
-    } catch (error) {
-        return error;
-    }
+   
+    const response = await axios.get(getUrl ,config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    return response.data;
+
 }
 

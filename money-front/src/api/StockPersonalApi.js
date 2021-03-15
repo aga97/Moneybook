@@ -1,41 +1,58 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const config = {
     withCredentials: true,
 }
 
-const Url = 'http://mbpj.duckdns.org:8080/api/v1/stock_personal';
+const Url = process.env.REACT_APP_SERVER_URL + '/api/v1/stock_personal';
 
 // get 
 export async function getStockPersonal() {
 
-    try {
-        const response = await axios.get(Url, config);
-        console.log(response)
-        return response.data;
+   
+    const response = await axios.get(Url, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    console.log(response)
+    return response.data;
 
-    } catch (error) {
-        return error;
-    }
 }
 
 // create Api
 
 export async function createStockPersonal(personalData) {
     console.log(personalData);
-    try {
-        const response = await axios.post(Url,{
-            "ticker": personalData.ticker,
-            "targetquantity": personalData.targetquantity,
-            "currentquantity": personalData.currentquantity
-        }, config);
-       
-        console.log(response)
-        return response.data;
-
-    } catch (error) {
-        return error;
-    }
+   
+    const response = await axios.post(Url,{
+        "ticker": personalData.ticker,
+        "targetquantity": personalData.targetquantity,
+        "currentquantity": personalData.currentquantity
+    }, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    
+    console.log(response)
+    return response.data; 
 }
 
 // update Api
@@ -43,17 +60,24 @@ export async function createStockPersonal(personalData) {
 export async function updateStockPersonal(id, personalData) {
     const getUrl = Url + '/' + id;
     console.log(personalData)
-    try {
-        const response = await axios.put(getUrl, {
-            "ticker": personalData.ticker,
-            "targetquantity": personalData.targetquantity,
-            "currentquantityweight": personalData.currentquantity
-        }, config)
-        return response.data;
-
-    } catch (error) {
-        return error;
-    }
+    
+    const response = await axios.put(getUrl, {
+        "ticker": personalData.ticker,
+        "targetquantity": personalData.targetquantity,
+        "currentquantityweight": personalData.currentquantity
+    }, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    return response.data;
 }
 
 // delete Api 
@@ -61,10 +85,19 @@ export async function updateStockPersonal(id, personalData) {
 export async function deleteStockPersonal(id) {
     const getUrl = Url + '/' + id;
     console.log(id);
-    try {
-        const response = await axios.delete(getUrl, config)
-        return response.data;
-    } catch (error) {
-        return error;
-    }
+    
+    const response = await axios.delete(getUrl, config)
+    .catch(function (error) {
+        if (error.response.status === (403 || 404)) {       
+            window.location.href = '/';             
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else {                    
+            console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    return response.data;
+   
 }

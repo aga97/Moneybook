@@ -19,7 +19,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        MBPJ
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -66,23 +66,19 @@ export default function SignIn() {
 
   const handleSubmit = () => {    
     dispatch(signIn(userName, passWord));    
-    if(sessionStorage.getItem('username') !== null) {
+    if(userName === username) {
       //window.history.pushState({data: null}, 'push to main', '/main');
       //window.location.replace('/main')
       window.location.href = '/main'
     }
   }
 
-  useEffect(() => {      
-    try {  
-      if(sessionStorage.getItem('username') !== null) {
-        //window.history.pushState({data: null}, 'push to main', '/main');
-        //window.location.replace('/main')
-        window.location.href = '/main'
-      }
-    } catch (error) {
-      console.log(error);
-    }            
+  useEffect(() => {          
+    if(userName === username) {
+      //window.history.pushState({data: null}, 'push to main', '/main');
+      //window.location.replace('/main')
+      window.location.href = '/main'
+    }
   },[username])
 
   return (
@@ -131,7 +127,7 @@ export default function SignIn() {
           </Button>
           <Grid container>            
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

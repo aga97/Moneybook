@@ -193,7 +193,7 @@ export default function MoneyTable() {
           <form className={classes.textfield} noValidate autoComplete="off">
             <TextField id="year" label="년도" defaultValue={year} variant="filled" type="number" onChange={(e) => {setData({...data, year: e.target.value})}} />
             <TextField id="month" label="월" defaultValue={month} variant="filled" type="number" onChange={(e) => {setData({...data, month: e.target.value})}} />
-            <TextField id="date" label="날짜" defaultValue={data.day} variant="filled" onChange={(e) => {setData({...data, day: e.target.value})}} />
+            <TextField id="date" label="날짜" defaultValue={data.day} variant="filled" type="number" onChange={(e) => {setData({...data, day: e.target.value})}} />
             <TextField id="context" label="내용" defaultValue={data.context} variant="filled" onChange={(e) => {setData({...data, context: e.target.value})}} />
             <TextField id="amount" label="금액" defaultValue={data.amount} variant="filled" type="number" onChange={(e) => {setData({...data, amount: e.target.value})}} />
             <TextField id="tag" label="태그" defaultValue={data.tag} variant="filled" onChange={(e) => {setData({...data, tag: e.target.value})}} />

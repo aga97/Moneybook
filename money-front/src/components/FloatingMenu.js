@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { createMoney } from '../module/moneyReducer';
+import { createMoney, getMoney } from '../module/moneyReducer';
 import { createTag, getTag } from '../module/tagReducer';
 import { createPersonal, getPersonal } from '../module/stockPersonalReducer';
 
@@ -85,12 +85,6 @@ export default function FloatingActionButtons() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-  const [day, setDay] = React.useState(null);
-  const [context, setContext] = React.useState({});
-  const [amount, setAmount] = React.useState({});
-  const [tag, setTag] = React.useState({});
-  const [year, setYear] = React.useState({});
-  const [month, setMonth] = React.useState({});
   const [bookData, setBookData] = React.useState({});
   const [startDate, setStartDate] = React.useState(new Date());
   const [tagData, setTagData] = React.useState(null);
@@ -135,22 +129,18 @@ export default function FloatingActionButtons() {
     setStockOpen(false);
   }
 
-  const handleMoneyCreate = () => {
-    setBookData({
-      year: year,
-      month: month,
-      day: day,
-      context: context,
-      amount: amount,
-      tag: tag
-    })
+  const handleMoneyCreate = () => {    
     dispatch(createMoney(bookData));
+    setTimeout(() => {
+      dispatch(getMoney(bookData.year, bookData.month))
+    }, 1000);
+    setBookData(null);
     setOpen(false);
   }
 
   const handleTagCreate = () => {
-    console.log(tagData);
     dispatch(createTag(tagData));
+    setTagData(null);
     setTagOpen(false);
     setTimeout(() => {
       dispatch(getTag()); 
@@ -189,12 +179,12 @@ export default function FloatingActionButtons() {
           </DialogTitle>
           <DialogContent dividers>        
             <form className={classes.textfield} noValidate autoComplete="off">
-              <TextField id="year" label="년도" variant="filled" type="number" onChange={(e) => {setYear(e.target.value)}} />
-              <TextField id="month" label="월" variant="filled" type="number" onChange={(e) => {setMonth(e.target.value)}} />
-              <TextField id="day" label="날짜" variant="filled" onChange={(e) => {setDay(e.target.value)}} />
-              <TextField id="context" label="내용" variant="filled" onChange={(e) => {setContext(e.target.value)}}/>
-              <TextField id="amount" type="number" label="금액" variant="filled" onChange={(e) => {setAmount(e.target.value)}}/>
-              <TextField id="tag" label="태그" variant="filled"onChange={(e) => {setTag(e.target.value)}} />
+              <TextField id="year" label="년도" variant="filled" type="number" onChange={(e) => {setBookData({...bookData, year : e.target.value})}} />
+              <TextField id="month" label="월" variant="filled" type="number" onChange={(e) => {setBookData({...bookData, month : e.target.value})}} />
+              <TextField id="day" label="날짜" variant="filled" onChange={(e) => {setBookData({...bookData, day : e.target.value})}} />
+              <TextField id="context" label="내용" variant="filled" onChange={(e) => {setBookData({...bookData, context : e.target.value})}}/>
+              <TextField id="amount" type="number" label="금액" variant="filled" onChange={(e) => {setBookData({...bookData, amount : e.target.value})}}/>
+              <TextField id="tag" label="태그" variant="filled" onChange={(e) => {setBookData({...bookData, tag : e.target.value})}} />
             </form>        
           </DialogContent>
           <DialogActions>

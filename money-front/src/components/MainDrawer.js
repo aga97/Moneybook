@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
+import FloatingActionButtons from './FloatingMenu.js';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -28,7 +29,6 @@ import TotalTable from './MoneyBookTable/TotalTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDateAcync, getDateFunc, timeRev } from '../module/dateReducer';
 import { signOut } from '../module/signReducer';
-import { Redirect } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -75,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
-      marginTop: theme.spacing(4),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -91,9 +90,6 @@ const useStyles = makeStyles((theme) => ({
     },
     nested: {
       paddingLeft: theme.spacing(4),
-    },
-    tableRoot: {
-      flexGrow: 1,
     },
     logout: {
       position: 'fixed',
@@ -131,11 +127,8 @@ const useStyles = makeStyles((theme) => ({
 
     const handleLogOut = () => {
       dispatch(signOut());
-      if(sessionStorage.getItem('username') === null) {
-        //window.history.replaceState({data: null}, 'push to login', '/');
-        //window.location.reload();
-        window.location.href = '/'
-      }
+     
+      window.location.href = '/';
     }
 
     useEffect(() => {      
@@ -146,14 +139,6 @@ const useStyles = makeStyles((theme) => ({
       }              
     },[dispatch])
 
-    useEffect(() => {      
-      if(sessionStorage.getItem('username') === null) {
-        //window.history.replaceState({data: null}, 'push to login', '/');
-        //window.location.reload();
-        //window.location.href = '/'
-      }
-    },[username])    
-
     if(!date) return(
       <div>
         loading...
@@ -161,6 +146,7 @@ const useStyles = makeStyles((theme) => ({
     )
       return (
         <div className={classes.root}>
+          <FloatingActionButtons />
           <CssBaseline />
           <AppBar
             position="fixed"
@@ -242,10 +228,10 @@ const useStyles = makeStyles((theme) => ({
             className={clsx(classes.content, {
               [classes.contentShift]: open,
             })}
-          >
-            <div />
+          >   
             {/* 여기에 다음 컴포넌트 */}
-            <Grid container className={classes.tableRoot} spacing={10} direction="row">
+            <div className={classes.drawerHeader} />
+            <Grid container spacing={10} direction="row">
               <Grid item>        
                 <MoneyTable /> 
               </Grid >
