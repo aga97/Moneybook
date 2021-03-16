@@ -1,5 +1,18 @@
 # Moneybook
  주식 정보를 가져와 확인 할 수 있는 가계부.
+
+## Demo
+
+ 주식기능 업데이트 예정.
+
+ ID: UserA
+ PW: 1111
+ 으로 로그인 가능 또는 회원가입 후 로그인. 
+
+ Link: [DemoPage][DemoLink]
+
+ [DemoLink]: http://mbpj.duckdns.org
+ 
 ## Login
  로그인 화면
  
@@ -32,15 +45,5 @@
  
 <img src="/images/stock2.png">
 
- ## Demo
-  
-  주식기능 업데이트 예정.
-  
-  ID: UserA
-  PW: 1111
-  으로 로그인 가능 또는 회원가입 후 로그인. 
-  
-  Link: [DemoPage][DemoLink]
-  
-  [DemoLink]: http://mbpj.duckdns.org
+
  
